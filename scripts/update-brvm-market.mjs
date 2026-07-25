@@ -180,20 +180,6 @@ async function previousFeed() {
   }
 }
 
-function comparableFeed(feed) {
-  return {
-    schemaVersion: feed?.schemaVersion,
-    quoteCount: feed?.quoteCount,
-    source: feed?.source,
-    sourceUrl: feed?.sourceUrl,
-    sessionDate: feed?.sessionDate,
-    sessionTime: feed?.sessionTime,
-    quotes: Array.isArray(feed?.quotes)
-      ? feed.quotes.map(({ fetchedAt: _fetchedAt, ...quote }) => quote)
-      : [],
-  };
-}
-
 async function main() {
   const response = await fetch(BRVM_URL, {
     headers: {
@@ -248,15 +234,6 @@ async function main() {
     sessionTime: session.time,
     fetchedAt,
   };
-  if (
-    previous &&
-    JSON.stringify(comparableFeed(previous)) === JSON.stringify(comparableFeed(body))
-  ) {
-    console.log(
-      `Alimentation BRVM inchangée : ${quotes.length}/47 — séance ${session.date} ${session.time ?? ""}.`,
-    );
-    return;
-  }
   await mkdir(dirname(OUTPUT_PATH), { recursive: true });
   await writeFile(OUTPUT_PATH, `${JSON.stringify(body, null, 2)}\n`, "utf8");
   console.log(
