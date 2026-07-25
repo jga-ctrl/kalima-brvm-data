@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
 const BRVM_URL = "https://www.brvm.org/fr/cours-actions/0";
@@ -53,10 +53,10 @@ const EXPECTED_SYMBOLS = new Set([
   "UNLC",
   "UNXC",
 ]);
-const OUTPUT_PATH = resolve(process.env.OUTPUT_PATH ?? "dist/brvm-market/latest.json");
+const OUTPUT_PATH = resolve(process.env.OUTPUT_PATH ?? "latest.json");
 const CURRENT_FEED_URL =
   process.env.CURRENT_FEED_URL ??
-  "https://jga-ctrl.github.io/kalima-brvm-data/latest.json";
+  "https://raw.githubusercontent.com/jga-ctrl/kalima-brvm-data/main/latest.json";
 
 function fail(message) {
   throw new Error(`Alimentation BRVM refusée : ${message}`);
@@ -162,18 +162,36 @@ function parseRows(html, sessionDate, sessionTime, fetchedAt) {
   return quotes;
 }
 
-async function previousSessionDate() {
+async function previousFeed() {
+  try {
+    return JSON.parse(await readFile(OUTPUT_PATH, "utf8"));
+  } catch {
+    // The first run has no local feed yet.
+  }
   try {
     const response = await fetch(CURRENT_FEED_URL, {
       headers: { Accept: "application/json" },
       signal: AbortSignal.timeout(15_000),
     });
     if (!response.ok) return null;
-    const body = await response.json();
-    return /^\d{4}-\d{2}-\d{2}$/.test(body?.sessionDate) ? body.sessionDate : null;
+    return await response.json();
   } catch {
     return null;
   }
+}
+
+function comparableFeed(feed) {
+  return {
+    schemaVersion: feed?.schemaVersion,
+    quoteCount: feed?.quoteCount,
+    source: feed?.source,
+    sourceUrl: feed?.sourceUrl,
+    sessionDate: feed?.sessionDate,
+    sessionTime: feed?.sessionTime,
+    quotes: Array.isArray(feed?.quotes)
+      ? feed.quotes.map(({ fetchedAt: _fetchedAt, ...quote }) => quote)
+      : [],
+  };
 }
 
 async function main() {
@@ -211,7 +229,11 @@ async function main() {
     );
   }
 
-  const previousDate = await previousSessionDate();
+  const previous = await previousFeed();
+  const previousDate =
+    previous && /^\d{4}-\d{2}-\d{2}$/.test(previous.sessionDate)
+      ? previous.sessionDate
+      : null;
   if (previousDate && session.date < previousDate) {
     fail(`séance ${session.date} antérieure à la séance publiée ${previousDate}`);
   }
@@ -226,6 +248,15 @@ async function main() {
     sessionTime: session.time,
     fetchedAt,
   };
+  if (
+    previous &&
+    JSON.stringify(comparableFeed(previous)) === JSON.stringify(comparableFeed(body))
+  ) {
+    console.log(
+      `Alimentation BRVM inchangée : ${quotes.length}/47 — séance ${session.date} ${session.time ?? ""}.`,
+    );
+    return;
+  }
   await mkdir(dirname(OUTPUT_PATH), { recursive: true });
   await writeFile(OUTPUT_PATH, `${JSON.stringify(body, null, 2)}\n`, "utf8");
   console.log(

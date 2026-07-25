@@ -16,16 +16,14 @@ on:
       - "scripts/update-brvm-market.mjs"
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: brvm-market-pages
+  group: brvm-market-feed
   cancel-in-progress: false
 
 jobs:
-  validate:
+  update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -39,26 +37,15 @@ jobs:
       - name: Fetch and validate 47 BRVM quotes
         run: node scripts/update-brvm-market.mjs
 
-      - name: Configure GitHub Pages
+      - name: Publish latest validated feed
         if: github.event_name != 'pull_request'
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - name: Upload market feed
-        if: github.event_name != 'pull_request'
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist/brvm-market
-
-  deploy:
-    if: github.event_name != 'pull_request'
-    needs: validate
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Publish market feed
-        id: deployment
-        uses: actions/deploy-pages@v4
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add latest.json
+          if git diff --cached --quiet; then
+            echo "Aucune nouvelle séance ou correction BRVM."
+            exit 0
+          fi
+          git commit -m "Update validated BRVM market feed"
+          git push
