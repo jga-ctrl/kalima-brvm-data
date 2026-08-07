@@ -13,7 +13,7 @@
       "dailyChangePercent": 7.5,
       "dayVolume": 499,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -23,7 +23,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "BICB",
@@ -36,7 +36,7 @@
       "dailyChangePercent": 1.27,
       "dayVolume": 1303,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -46,7 +46,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "BICC",
@@ -59,7 +59,7 @@
       "dailyChangePercent": 0.34,
       "dayVolume": 148,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -69,7 +69,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "BNBC",
@@ -82,7 +82,7 @@
       "dailyChangePercent": -0.78,
       "dayVolume": 1386,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -92,7 +92,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "BOAB",
@@ -105,7 +105,7 @@
       "dailyChangePercent": 0.11,
       "dayVolume": 4887,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -115,7 +115,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "BOABF",
@@ -128,7 +128,7 @@
       "dailyChangePercent": 0.42,
       "dayVolume": 14488,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -138,7 +138,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "BOAC",
@@ -151,7 +151,7 @@
       "dailyChangePercent": 0,
       "dayVolume": 3757,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -161,7 +161,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "BOAM",
@@ -174,7 +174,7 @@
       "dailyChangePercent": 0.09,
       "dayVolume": 849,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -184,7 +184,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "BOAN",
@@ -197,7 +197,7 @@
       "dailyChangePercent": 2.46,
       "dayVolume": 4425,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -207,7 +207,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "BOAS",
@@ -220,7 +220,7 @@
       "dailyChangePercent": 1.45,
       "dayVolume": 1166,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -230,7 +230,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "CABC",
@@ -243,7 +243,7 @@
       "dailyChangePercent": 1.43,
       "dayVolume": 782,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -253,7 +253,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "CBIBF",
@@ -266,7 +266,7 @@
       "dailyChangePercent": 0.02,
       "dayVolume": 523,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -276,7 +276,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "CFAC",
@@ -289,7 +289,7 @@
       "dailyChangePercent": 0.59,
       "dayVolume": 502,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -299,7 +299,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "CIEC",
@@ -312,7 +312,7 @@
       "dailyChangePercent": 0.4,
       "dayVolume": 2192,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -322,7 +322,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "ECOC",
@@ -335,7 +335,7 @@
       "dailyChangePercent": 1.25,
       "dayVolume": 562,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -345,7 +345,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "ETIT",
@@ -358,7 +358,7 @@
       "dailyChangePercent": 1.56,
       "dayVolume": 428618,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -368,7 +368,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "FTSC",
@@ -381,7 +381,7 @@
       "dailyChangePercent": 0.5,
       "dayVolume": 10905,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -391,7 +391,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "LNBB",
@@ -404,7 +404,7 @@
       "dailyChangePercent": 0,
       "dayVolume": 4261,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -414,7 +414,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "NEIC",
@@ -427,7 +427,7 @@
       "dailyChangePercent": -6.42,
       "dayVolume": 878,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -437,7 +437,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "NSBC",
@@ -450,7 +450,7 @@
       "dailyChangePercent": -1.26,
       "dayVolume": 309,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -460,7 +460,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "NTLC",
@@ -473,7 +473,7 @@
       "dailyChangePercent": -0.93,
       "dayVolume": 384,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -483,7 +483,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "ONTBF",
@@ -496,7 +496,7 @@
       "dailyChangePercent": -1.51,
       "dayVolume": 1693,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -506,7 +506,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "ORAC",
@@ -519,7 +519,7 @@
       "dailyChangePercent": 0,
       "dayVolume": 773,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -529,7 +529,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "ORGT",
@@ -542,7 +542,7 @@
       "dailyChangePercent": -0.48,
       "dayVolume": 1235,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -552,7 +552,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "PALC",
@@ -565,7 +565,7 @@
       "dailyChangePercent": 0,
       "dayVolume": 836,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -575,7 +575,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "PRSC",
@@ -588,7 +588,7 @@
       "dailyChangePercent": -0.11,
       "dayVolume": 464,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -598,7 +598,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SAFC",
@@ -611,7 +611,7 @@
       "dailyChangePercent": 5,
       "dayVolume": 3742,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -621,7 +621,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SCRC",
@@ -634,7 +634,7 @@
       "dailyChangePercent": -0.7,
       "dayVolume": 4769,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -644,7 +644,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SDCC",
@@ -657,7 +657,7 @@
       "dailyChangePercent": 4.39,
       "dayVolume": 478,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -667,7 +667,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SDSC",
@@ -680,7 +680,7 @@
       "dailyChangePercent": 7.43,
       "dayVolume": 63031,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -690,7 +690,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SEMC",
@@ -703,7 +703,7 @@
       "dailyChangePercent": -0.34,
       "dayVolume": 1026,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -713,7 +713,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SGBC",
@@ -726,7 +726,7 @@
       "dailyChangePercent": 0.25,
       "dayVolume": 3368,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -736,7 +736,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SHEC",
@@ -749,7 +749,7 @@
       "dailyChangePercent": -0.43,
       "dayVolume": 2066,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -759,7 +759,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SIBC",
@@ -772,7 +772,7 @@
       "dailyChangePercent": 0.54,
       "dayVolume": 2688,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -782,7 +782,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SICC",
@@ -795,7 +795,7 @@
       "dailyChangePercent": 0,
       "dayVolume": 9,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -805,7 +805,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SIVC",
@@ -818,7 +818,7 @@
       "dailyChangePercent": 2.41,
       "dayVolume": 4737,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -828,7 +828,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SLBC",
@@ -841,7 +841,7 @@
       "dailyChangePercent": 0.27,
       "dayVolume": 322,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -851,7 +851,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SMBC",
@@ -864,7 +864,7 @@
       "dailyChangePercent": 0.3,
       "dayVolume": 628,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -874,7 +874,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SNTS",
@@ -887,7 +887,7 @@
       "dailyChangePercent": 2.65,
       "dayVolume": 2386,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -897,7 +897,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SOGC",
@@ -910,7 +910,7 @@
       "dailyChangePercent": 0,
       "dayVolume": 771,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -920,7 +920,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "SPHC",
@@ -933,7 +933,7 @@
       "dailyChangePercent": 0,
       "dayVolume": 455,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -943,7 +943,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "STAC",
@@ -956,7 +956,7 @@
       "dailyChangePercent": -0.56,
       "dayVolume": 4162,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -966,7 +966,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "STBC",
@@ -979,7 +979,7 @@
       "dailyChangePercent": -0.08,
       "dayVolume": 1907,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -989,7 +989,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "TTLC",
@@ -1002,7 +1002,7 @@
       "dailyChangePercent": -5.87,
       "dayVolume": 3506,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -1012,7 +1012,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "TTLS",
@@ -1025,7 +1025,7 @@
       "dailyChangePercent": -3.58,
       "dayVolume": 1573,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -1035,7 +1035,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "UNLC",
@@ -1048,7 +1048,7 @@
       "dailyChangePercent": 0,
       "dayVolume": 21,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -1058,7 +1058,7 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     },
     {
       "symbol": "UNXC",
@@ -1071,7 +1071,7 @@
       "dailyChangePercent": 0.26,
       "dayVolume": 5463,
       "sessionDate": "2026-08-07",
-      "sessionTime": "10:04",
+      "sessionTime": "11:03",
       "priceSeries": [
         {
           "date": "2026-08-07",
@@ -1081,12 +1081,12 @@
       ],
       "source": "BRVM — Journée de cotation (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-08-07T10:14:23.383Z"
+      "fetchedAt": "2026-08-07T11:09:23.695Z"
     }
   ],
   "source": "BRVM — Journée de cotation (cours actions)",
   "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
   "sessionDate": "2026-08-07",
-  "sessionTime": "10:04",
-  "fetchedAt": "2026-08-07T10:14:23.383Z"
+  "sessionTime": "11:03",
+  "fetchedAt": "2026-08-07T11:09:23.695Z"
 }
