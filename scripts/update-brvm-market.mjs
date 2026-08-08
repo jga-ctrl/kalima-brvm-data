@@ -5,53 +5,11 @@ const BRVM_URL = "https://www.brvm.org/fr/cours-actions/0";
 const SOURCE_LABEL = "BRVM — Journée de cotation (cours actions)";
 const EXPECTED_QUOTE_COUNT = 47;
 const EXPECTED_SYMBOLS = new Set([
-  "ABJC",
-  "BICB",
-  "BICC",
-  "BNBC",
-  "BOAB",
-  "BOABF",
-  "BOAC",
-  "BOAM",
-  "BOAN",
-  "BOAS",
-  "CABC",
-  "CBIBF",
-  "CFAC",
-  "CIEC",
-  "ECOC",
-  "ETIT",
-  "FTSC",
-  "LNBB",
-  "NEIC",
-  "NSBC",
-  "NTLC",
-  "ONTBF",
-  "ORAC",
-  "ORGT",
-  "PALC",
-  "PRSC",
-  "SAFC",
-  "SCRC",
-  "SDCC",
-  "SDSC",
-  "SEMC",
-  "SGBC",
-  "SHEC",
-  "SIBC",
-  "SICC",
-  "SIVC",
-  "SLBC",
-  "SMBC",
-  "SNTS",
-  "SOGC",
-  "SPHC",
-  "STAC",
-  "STBC",
-  "TTLC",
-  "TTLS",
-  "UNLC",
-  "UNXC",
+  "ABJC", "BICB", "BICC", "BNBC", "BOAB", "BOABF", "BOAC", "BOAM", "BOAN", "BOAS",
+  "CABC", "CBIBF", "CFAC", "CIEC", "ECOC", "ETIT", "FTSC", "LNBB", "NEIC", "NSBC",
+  "NTLC", "ONTBF", "ORAC", "ORGT", "PALC", "PRSC", "SAFC", "SCRC", "SDCC", "SDSC",
+  "SEMC", "SGBC", "SHEC", "SIBC", "SICC", "SIVC", "SLBC", "SMBC", "SNTS", "SOGC",
+  "SPHC", "STAC", "STBC", "TTLC", "TTLS", "UNLC", "UNXC",
 ]);
 const OUTPUT_PATH = resolve(process.env.OUTPUT_PATH ?? "latest.json");
 const CURRENT_FEED_URL =
@@ -72,6 +30,15 @@ function decodeHtml(value) {
     .trim();
 }
 
+function normalizeHeader(value) {
+  return decodeHtml(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function parseFrNumber(raw) {
   const cleaned = raw.replace(/\s|\u00a0/g, "").replace(/,/g, ".");
   const value = Number.parseFloat(cleaned);
@@ -85,21 +52,9 @@ function extractSessionMeta(html) {
   if (!match) return null;
   const [, dayText, monthText, yearText, time] = match;
   const months = {
-    janvier: 0,
-    février: 1,
-    fevrier: 1,
-    mars: 2,
-    avril: 3,
-    mai: 4,
-    juin: 5,
-    juillet: 6,
-    août: 7,
-    aout: 7,
-    septembre: 8,
-    octobre: 9,
-    novembre: 10,
-    décembre: 11,
-    decembre: 11,
+    janvier: 0, février: 1, fevrier: 1, mars: 2, avril: 3, mai: 4, juin: 5,
+    juillet: 6, août: 7, aout: 7, septembre: 8, octobre: 9, novembre: 10,
+    décembre: 11, decembre: 11,
   };
   const month = months[monthText.toLowerCase()];
   if (month == null) return null;
@@ -116,7 +71,35 @@ function extractSessionMeta(html) {
   return { date: date.toISOString().slice(0, 10), time };
 }
 
+function extractColumnMap(html) {
+  const rowPattern = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+  let rowMatch;
+  while ((rowMatch = rowPattern.exec(html))) {
+    const headers = [...rowMatch[1].matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)].map((cell) =>
+      normalizeHeader(cell[1]),
+    );
+    if (!headers.length) continue;
+    const find = (predicate) => headers.findIndex(predicate);
+    const map = {
+      symbol: find((h) => h === "symbole"),
+      name: find((h) => h === "nom"),
+      volume: find((h) => h === "volume"),
+      previousClose: find((h) => h.startsWith("cours veille")),
+      openPrice: find((h) => h.startsWith("cours ouverture")),
+      lastPrice: find((h) => h.startsWith("cours cloture")),
+      dayChangePct: find((h) => h.startsWith("variation")),
+    };
+    if (Object.values(map).every((index) => index >= 0)) return map;
+  }
+  return null;
+}
+
 function parseRows(html, sessionDate, sessionTime, fetchedAt) {
+  const columns = extractColumnMap(html);
+  if (!columns) {
+    fail("en-têtes BRVM attendus introuvables (Symbole/Nom/Volume/Cours veille/Ouverture/Clôture/Variation)");
+  }
+
   const quotes = [];
   const seen = new Set();
   const rowPattern = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
@@ -125,21 +108,25 @@ function parseRows(html, sessionDate, sessionTime, fetchedAt) {
     const cells = [...rowMatch[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(
       (cell) => decodeHtml(cell[1]),
     );
-    if (cells.length < 7) continue;
-    const symbol = cells[0].toUpperCase();
+    if (!cells.length) continue;
+    const symbol = (cells[columns.symbol] ?? "").toUpperCase();
     if (!/^[A-Z]{3,6}$/.test(symbol) || seen.has(symbol)) continue;
-    const lastPrice = parseFrNumber(cells[5]);
+
+    const lastPrice = parseFrNumber(cells[columns.lastPrice] ?? "");
     if (!Number.isFinite(lastPrice) || lastPrice <= 0) continue;
-    const previousClose = parseFrNumber(cells[3]);
-    const openPrice = parseFrNumber(cells[4]);
-    const dayVolume = parseFrNumber(cells[2]);
-    const dayChangePct = parseFrNumber(cells[6]);
+    const previousClose = parseFrNumber(cells[columns.previousClose] ?? "");
+    const openPrice = parseFrNumber(cells[columns.openPrice] ?? "");
+    const dayVolume = parseFrNumber(cells[columns.volume] ?? "");
+    const dayChangePct = parseFrNumber(cells[columns.dayChangePct] ?? "");
+
     seen.add(symbol);
     quotes.push({
       symbol,
-      name: cells[1] || undefined,
+      name: cells[columns.name] || undefined,
       currency: "XOF",
       lastPrice,
+      // BRVM « Cours veille ». Ce champ n'est pas recalculé et n'est pas
+      // utilisé comme substitut à la Variation (%) officielle BRVM.
       previousClose: Number.isFinite(previousClose) ? previousClose : undefined,
       openPrice: Number.isFinite(openPrice) ? openPrice : undefined,
       dayChangePct: Number.isFinite(dayChangePct) ? dayChangePct : undefined,
