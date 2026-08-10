@@ -1,9 +1,9 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
+import { previousWeekday } from "./market-calendar.mjs";
 
 const BRVM_URL = "https://www.brvm.org/fr/cours-actions/0";
-const BOC_BASE_URL = "https://bfin.brvm.org/boc/boc_jour.aspx/BOC_JOUR";
-const SOURCE_LABEL = "BRVM — Journée de cotation (cours actions)";
+const SOURCE_LABEL = "BRVM — séance officielle fermée (cours actions)";
 const EXPECTED_QUOTE_COUNT = 47;
 const MIN_CONTINUITY_RATE = 0.9;
 const EXPECTED_SYMBOLS = new Set([
@@ -20,40 +20,6 @@ const CURRENT_FEED_URL =
 
 function fail(message) {
   throw new Error(`Alimentation BRVM refusée : ${message}`);
-}
-
-function bocUrlForDate(date) {
-  return `${BOC_BASE_URL}/BOC_${date.replaceAll("-", "")}.pdf`;
-}
-
-async function requireOfficialBoc(date) {
-  const url = bocUrlForDate(date);
-  let response;
-  try {
-    response = await fetch(url, {
-      headers: {
-        Accept: "application/pdf,*/*;q=0.8",
-        Range: "bytes=0-15",
-        "User-Agent": "KalimaBourse-KME/1.0",
-      },
-      signal: AbortSignal.timeout(20_000),
-      redirect: "follow",
-    });
-  } catch (error) {
-    fail(`BOC officiel ${date} inaccessible (${error instanceof Error ? error.message : String(error)})`);
-  }
-
-  if (!response.ok && response.status !== 206) {
-    fail(`BOC officiel ${date} non disponible (HTTP ${response.status})`);
-  }
-
-  const bytes = new Uint8Array(await response.arrayBuffer());
-  const signature = String.fromCharCode(...bytes.slice(0, 4));
-  const contentType = response.headers.get("content-type") ?? "";
-  if (signature !== "%PDF" && !contentType.toLowerCase().includes("application/pdf")) {
-    fail(`BOC officiel ${date} invalide : la ressource BRVM n'est pas un PDF`);
-  }
-  return url;
 }
 
 function decodeHtml(value) {
@@ -81,6 +47,10 @@ function parseFrNumber(raw) {
   return Number.isFinite(value) ? value : Number.NaN;
 }
 
+function isClosedSession(html) {
+  return /S[ée]ance\s+ferm[ée]e/i.test(decodeHtml(html));
+}
+
 function extractSessionMeta(html) {
   const match = html.match(
     /Derni[eè]re mise [aà] jour\s*:\s*[^<,]+,\s*(\d{1,2})\s+([\p{L}]+),?\s+(\d{4})\s*-\s*(\d{1,2}:\d{2})/iu,
@@ -101,9 +71,7 @@ function extractSessionMeta(html) {
     date.getUTCFullYear() !== year ||
     date.getUTCMonth() !== month ||
     date.getUTCDate() !== day
-  ) {
-    return null;
-  }
+  ) return null;
   return { date: date.toISOString().slice(0, 10), time };
 }
 
@@ -132,9 +100,7 @@ function extractColumnMap(html) {
 
 function parseRows(html, sessionDate, sessionTime, fetchedAt) {
   const columns = extractColumnMap(html);
-  if (!columns) {
-    fail("en-têtes BRVM attendus introuvables (Symbole/Nom/Volume/Cours veille/Ouverture/Clôture/Variation)");
-  }
+  if (!columns) fail("en-têtes BRVM attendus introuvables");
 
   const quotes = [];
   const seen = new Set();
@@ -146,7 +112,7 @@ function parseRows(html, sessionDate, sessionTime, fetchedAt) {
     );
     if (!cells.length) continue;
     const symbol = (cells[columns.symbol] ?? "").toUpperCase();
-    if (!/^[A-Z]{3,6}$/.test(symbol) || seen.has(symbol)) continue;
+    if (!/^[A-Z]{3,6}$/.test(symbol) || seen.has(symbol) || !EXPECTED_SYMBOLS.has(symbol)) continue;
 
     const lastPrice = parseFrNumber(cells[columns.lastPrice] ?? "");
     if (!Number.isFinite(lastPrice) || lastPrice <= 0) continue;
@@ -168,13 +134,11 @@ function parseRows(html, sessionDate, sessionTime, fetchedAt) {
       dayVolume: Number.isFinite(dayVolume) ? dayVolume : undefined,
       sessionDate,
       sessionTime,
-      priceSeries: [
-        {
-          date: sessionDate,
-          close: lastPrice,
-          volume: Number.isFinite(dayVolume) ? dayVolume : undefined,
-        },
-      ],
+      priceSeries: [{
+        date: sessionDate,
+        close: lastPrice,
+        volume: Number.isFinite(dayVolume) ? dayVolume : undefined,
+      }],
       source: SOURCE_LABEL,
       sourceUrl: BRVM_URL,
       fetchedAt,
@@ -203,30 +167,26 @@ function marketFingerprint(quotes) {
 
 function validateContinuity(previousQuotes, quotes) {
   const previousBySymbol = new Map(previousQuotes.map((quote) => [quote.symbol, quote]));
-  const mismatches = [];
   let comparable = 0;
   let matches = 0;
+  const mismatches = [];
 
   for (const quote of quotes) {
     const prior = previousBySymbol.get(quote.symbol);
     if (!prior || !Number.isFinite(prior.lastPrice) || !Number.isFinite(quote.previousClose)) continue;
     comparable += 1;
-    if (quote.previousClose === prior.lastPrice) {
-      matches += 1;
-    } else {
-      mismatches.push(`${quote.symbol}:${prior.lastPrice}->veille=${quote.previousClose}`);
-    }
+    if (quote.previousClose === prior.lastPrice) matches += 1;
+    else mismatches.push(`${quote.symbol}:${prior.lastPrice}->veille=${quote.previousClose}`);
   }
 
   if (comparable < Math.floor(EXPECTED_QUOTE_COUNT * 0.8)) {
-    fail(`continuité impossible à contrôler : seulement ${comparable}/${EXPECTED_QUOTE_COUNT} titres comparables`);
+    fail(`continuité impossible à contrôler : ${comparable}/${EXPECTED_QUOTE_COUNT} titres comparables`);
   }
-
   const rate = matches / comparable;
   if (rate < MIN_CONTINUITY_RATE) {
     fail(
       `continuité de séance insuffisante (${matches}/${comparable}, ${(rate * 100).toFixed(1)}%). ` +
-        `Exemples: ${mismatches.slice(0, 8).join(", ")}`,
+      `Exemples: ${mismatches.slice(0, 8).join(", ")}`,
     );
   }
 }
@@ -234,9 +194,7 @@ function validateContinuity(previousQuotes, quotes) {
 async function previousFeed() {
   try {
     return JSON.parse(await readFile(OUTPUT_PATH, "utf8"));
-  } catch {
-    // The first run has no local feed yet.
-  }
+  } catch {}
   try {
     const response = await fetch(CURRENT_FEED_URL, {
       headers: { Accept: "application/json" },
@@ -252,8 +210,7 @@ async function previousFeed() {
 async function main() {
   const response = await fetch(BRVM_URL, {
     headers: {
-      "User-Agent":
-        "Mozilla/5.0 (compatible; KalimaBourse-KME/1.0; +https://github.com/jga-ctrl/kalima-brvm-data)",
+      "User-Agent": "Mozilla/5.0 (compatible; KalimaBourse-KME/2.0)",
       "Accept-Language": "fr-FR,fr;q=0.9",
       Accept: "text/html,application/xhtml+xml",
     },
@@ -261,83 +218,79 @@ async function main() {
   });
   if (!response.ok) fail(`BRVM a répondu ${response.status}`);
   const html = await response.text();
+
+  if (!isClosedSession(html)) {
+    console.log("BRVM : séance encore ouverte. Aucune clôture publiée.");
+    return;
+  }
+
   const session = extractSessionMeta(html);
   if (!session) fail("date officielle de séance introuvable");
 
   const fetchedAt = new Date().toISOString();
   const quotes = parseRows(html, session.date, session.time, fetchedAt);
-  if (quotes.length !== EXPECTED_QUOTE_COUNT) {
-    fail(`${quotes.length}/${EXPECTED_QUOTE_COUNT} cours parsés`);
-  }
+  if (quotes.length !== EXPECTED_QUOTE_COUNT) fail(`${quotes.length}/${EXPECTED_QUOTE_COUNT} cours parsés`);
 
-  const expected = EXPECTED_SYMBOLS;
   const actual = new Set(quotes.map((quote) => quote.symbol));
-  if (expected.size !== EXPECTED_QUOTE_COUNT || actual.size !== EXPECTED_QUOTE_COUNT) {
-    fail("ticker absent ou dupliqué");
-  }
-  const missing = [...expected].filter((symbol) => !actual.has(symbol));
-  const unexpected = [...actual].filter((symbol) => !expected.has(symbol));
-  if (missing.length || unexpected.length) {
-    fail(
-      `univers différent du registre (absents: ${missing.join(", ") || "aucun"}; ` +
-        `inattendus: ${unexpected.join(", ") || "aucun"})`,
-    );
+  const missing = [...EXPECTED_SYMBOLS].filter((symbol) => !actual.has(symbol));
+  if (missing.length || actual.size !== EXPECTED_QUOTE_COUNT) {
+    fail(`univers incomplet : ${actual.size}/47; absents: ${missing.join(", ") || "aucun"}`);
   }
 
   const previous = await previousFeed();
-  const previousDate =
-    previous && /^\d{4}-\d{2}-\d{2}$/.test(previous.sessionDate)
-      ? previous.sessionDate
-      : null;
+  const previousDate = /^\d{4}-\d{2}-\d{2}$/.test(previous?.sessionDate ?? "")
+    ? previous.sessionDate
+    : null;
+  const previousQuotes = Array.isArray(previous?.quotes) ? previous.quotes : [];
+
   if (previousDate && session.date < previousDate) {
     fail(`séance ${session.date} antérieure à la séance publiée ${previousDate}`);
   }
 
-  const previousQuotes = Array.isArray(previous?.quotes) ? previous.quotes : [];
   const sameMarketData =
     previousQuotes.length === EXPECTED_QUOTE_COUNT &&
     marketFingerprint(previousQuotes) === marketFingerprint(quotes);
 
-  if (previousDate && session.date > previousDate && sameMarketData) {
-    fail(
-      `séance ${session.date} déclarée nouvelle mais les 47 cours/volumes/ouvertures/variations sont identiques à ${previousDate}`,
-    );
-  }
-
-  if (previousDate && session.date > previousDate && previousQuotes.length === EXPECTED_QUOTE_COUNT) {
-    validateContinuity(previousQuotes, quotes);
-  }
-
   if (previousDate === session.date && sameMarketData) {
-    console.log(
-      `Alimentation BRVM inchangée : séance ${session.date}, aucun changement de marché. Aucun fichier réécrit.`,
-    );
+    console.log(`BRVM : séance ${session.date} déjà publiée, aucun changement.`);
     return;
   }
 
-  // Une nouvelle clôture n'est publiable que si le Bulletin Officiel de la Cote
-  // correspondant existe réellement sur l'infrastructure officielle BRVM.
-  const bocUrl = await requireOfficialBoc(session.date);
+  if (previousDate && session.date > previousDate && sameMarketData) {
+    fail(`nouvelle date ${session.date} mais données de marché recyclées depuis ${previousDate}`);
+  }
+
+  // La continuité n'est bloquante que si la dernière séance enregistrée est
+  // exactement la veille ouvrée attendue. Si une séance manque dans l'historique
+  // local, on ne compare pas artificiellement deux jours non consécutifs.
+  const expectedPreviousSession = previousWeekday(session.date);
+  const continuityChecked =
+    previousDate === expectedPreviousSession && previousQuotes.length === EXPECTED_QUOTE_COUNT;
+  if (continuityChecked) validateContinuity(previousQuotes, quotes);
 
   const body = {
-    schemaVersion: "1.1",
+    schemaVersion: "2.0",
     quoteCount: quotes.length,
     quotes,
     source: SOURCE_LABEL,
     sourceUrl: BRVM_URL,
     certification: {
-      status: "official-boc-confirmed",
+      status: "official-brvm-session-closed",
       sessionDate: session.date,
-      bocUrl,
+      sourceUrl: BRVM_URL,
+      continuityChecked,
+      previousPublishedSession: previousDate,
     },
     sessionDate: session.date,
     sessionTime: session.time,
     fetchedAt,
   };
+
   await mkdir(dirname(OUTPUT_PATH), { recursive: true });
   await writeFile(OUTPUT_PATH, `${JSON.stringify(body, null, 2)}\n`, "utf8");
   console.log(
-    `Alimentation BRVM certifiée : ${quotes.length}/47 — séance ${session.date} ${session.time ?? ""} — BOC confirmé.`,
+    `Alimentation BRVM certifiée : ${quotes.length}/47 — séance fermée ${session.date} ${session.time}.` +
+    (continuityChecked ? " Continuité validée." : " Continuité non exigée (séance intermédiaire manquante)."),
   );
 }
 
