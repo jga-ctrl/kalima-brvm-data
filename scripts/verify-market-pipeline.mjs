@@ -3,32 +3,40 @@ import { readFile } from "node:fs/promises";
 const EXPECTED_QUOTE_COUNT = 47;
 const collectorPath = "scripts/update-brvm-market.mjs";
 const workflowPath = ".github/workflows/update-brvm-market.yml";
+const guardWorkflowPath = ".github/workflows/guard-brvm-market-freshness.yml";
+const calendarPath = "scripts/market-calendar.mjs";
 const feedPath = "latest.json";
 
 function assert(condition, message) {
   if (!condition) throw new Error(`Verrou pipeline BRVM rompu : ${message}`);
 }
 
-const [collector, workflow, feedRaw] = await Promise.all([
+const [collector, workflow, guardWorkflow, calendar, feedRaw] = await Promise.all([
   readFile(collectorPath, "utf8"),
   readFile(workflowPath, "utf8"),
+  readFile(guardWorkflowPath, "utf8"),
+  readFile(calendarPath, "utf8"),
   readFile(feedPath, "utf8"),
 ]);
 
-// Contrat de non-régression du collecteur.
 assert(collector.includes("EXPECTED_QUOTE_COUNT = 47"), "contrôle 47/47 absent");
 assert(collector.includes("marketFingerprint"), "détection de séance recyclée absente");
+assert(collector.includes("isClosedSession"), "contrôle Séance fermée absent");
+assert(collector.includes("previousWeekday"), "gestion des séances manquantes absente");
+assert(collector.includes("previousDate === expectedPreviousSession"), "continuité conditionnelle absente");
 assert(collector.includes("validateContinuity"), "contrôle de continuité absent");
-assert(collector.includes("MIN_CONTINUITY_RATE"), "seuil de continuité absent");
-assert(/BOC|Bulletin Officiel|bulletin/i.test(collector), "certification BOC absente");
-assert(collector.includes("session.date > previousDate"), "contrôle de nouvelle séance absent");
+assert(collector.includes("official-brvm-session-closed"), "certification de clôture officielle absente");
 
-// Contrat de non-régression du workflow.
-assert(workflow.includes("if: success()"), "publication non conditionnée au succès des validations");
+assert(workflow.includes("if: success()"), "publication principale non conditionnée au succès");
 assert(workflow.includes("git diff --cached --quiet"), "protection anti-commit no-op absente");
-assert(/cron:\s*"[^"]*1-5"/.test(workflow), "planification limitée aux jours ouvrés absente");
+assert(/cron:\s*"[^"]*1-5"/.test(workflow), "planification principale limitée aux jours ouvrés absente");
 
-// Intégrité du dernier flux publié.
+assert(guardWorkflow.includes("feedNeedsRefresh"), "garde-fou encore basé sur fetchedAt/75 min");
+assert(!guardWorkflow.includes("ageMinutes > 75"), "ancienne règle 75 minutes encore active");
+assert(/cron:\s*"[^"]*1-5"/.test(guardWorkflow), "garde-fou non limité aux jours ouvrés");
+assert(guardWorkflow.includes("if: success()"), "publication de réparation non conditionnée au succès");
+assert(calendar.includes("Africa/Abidjan"), "calendrier non aligné sur Abidjan");
+
 const feed = JSON.parse(feedRaw);
 assert(feed.quoteCount === EXPECTED_QUOTE_COUNT, `quoteCount=${feed.quoteCount}`);
 assert(Array.isArray(feed.quotes) && feed.quotes.length === EXPECTED_QUOTE_COUNT, "47 cotations non présentes");
