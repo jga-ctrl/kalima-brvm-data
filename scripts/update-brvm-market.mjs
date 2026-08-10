@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
 const BRVM_URL = "https://www.brvm.org/fr/cours-actions/0";
+const BOC_BASE_URL = "https://bfin.brvm.org/boc/boc_jour.aspx/BOC_JOUR";
 const SOURCE_LABEL = "BRVM — Journée de cotation (cours actions)";
 const EXPECTED_QUOTE_COUNT = 47;
 const MIN_CONTINUITY_RATE = 0.9;
@@ -19,6 +20,40 @@ const CURRENT_FEED_URL =
 
 function fail(message) {
   throw new Error(`Alimentation BRVM refusée : ${message}`);
+}
+
+function bocUrlForDate(date) {
+  return `${BOC_BASE_URL}/BOC_${date.replaceAll("-", "")}.pdf`;
+}
+
+async function requireOfficialBoc(date) {
+  const url = bocUrlForDate(date);
+  let response;
+  try {
+    response = await fetch(url, {
+      headers: {
+        Accept: "application/pdf,*/*;q=0.8",
+        Range: "bytes=0-15",
+        "User-Agent": "KalimaBourse-KME/1.0",
+      },
+      signal: AbortSignal.timeout(20_000),
+      redirect: "follow",
+    });
+  } catch (error) {
+    fail(`BOC officiel ${date} inaccessible (${error instanceof Error ? error.message : String(error)})`);
+  }
+
+  if (!response.ok && response.status !== 206) {
+    fail(`BOC officiel ${date} non disponible (HTTP ${response.status})`);
+  }
+
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  const signature = String.fromCharCode(...bytes.slice(0, 4));
+  const contentType = response.headers.get("content-type") ?? "";
+  if (signature !== "%PDF" && !contentType.toLowerCase().includes("application/pdf")) {
+    fail(`BOC officiel ${date} invalide : la ressource BRVM n'est pas un PDF`);
+  }
+  return url;
 }
 
 function decodeHtml(value) {
@@ -280,12 +315,21 @@ async function main() {
     return;
   }
 
+  // Une nouvelle clôture n'est publiable que si le Bulletin Officiel de la Cote
+  // correspondant existe réellement sur l'infrastructure officielle BRVM.
+  const bocUrl = await requireOfficialBoc(session.date);
+
   const body = {
-    schemaVersion: "1.0",
+    schemaVersion: "1.1",
     quoteCount: quotes.length,
     quotes,
     source: SOURCE_LABEL,
     sourceUrl: BRVM_URL,
+    certification: {
+      status: "official-boc-confirmed",
+      sessionDate: session.date,
+      bocUrl,
+    },
     sessionDate: session.date,
     sessionTime: session.time,
     fetchedAt,
@@ -293,7 +337,7 @@ async function main() {
   await mkdir(dirname(OUTPUT_PATH), { recursive: true });
   await writeFile(OUTPUT_PATH, `${JSON.stringify(body, null, 2)}\n`, "utf8");
   console.log(
-    `Alimentation BRVM validée : ${quotes.length}/47 — séance ${session.date} ${session.time ?? ""}.`,
+    `Alimentation BRVM certifiée : ${quotes.length}/47 — séance ${session.date} ${session.time ?? ""} — BOC confirmé.`,
   );
 }
 
