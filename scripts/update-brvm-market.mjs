@@ -4,6 +4,7 @@ import { dirname, resolve } from "node:path";
 const BRVM_URL = "https://www.brvm.org/fr/cours-actions/0";
 const SOURCE_LABEL = "BRVM — Journée de cotation (cours actions)";
 const EXPECTED_QUOTE_COUNT = 47;
+const MIN_CONTINUITY_RATE = 0.9;
 const EXPECTED_SYMBOLS = new Set([
   "ABJC", "BICB", "BICC", "BNBC", "BOAB", "BOABF", "BOAC", "BOAM", "BOAN", "BOAS",
   "CABC", "CBIBF", "CFAC", "CIEC", "ECOC", "ETIT", "FTSC", "LNBB", "NEIC", "NSBC",
@@ -165,6 +166,36 @@ function marketFingerprint(quotes) {
     .join("|");
 }
 
+function validateContinuity(previousQuotes, quotes) {
+  const previousBySymbol = new Map(previousQuotes.map((quote) => [quote.symbol, quote]));
+  const mismatches = [];
+  let comparable = 0;
+  let matches = 0;
+
+  for (const quote of quotes) {
+    const prior = previousBySymbol.get(quote.symbol);
+    if (!prior || !Number.isFinite(prior.lastPrice) || !Number.isFinite(quote.previousClose)) continue;
+    comparable += 1;
+    if (quote.previousClose === prior.lastPrice) {
+      matches += 1;
+    } else {
+      mismatches.push(`${quote.symbol}:${prior.lastPrice}->veille=${quote.previousClose}`);
+    }
+  }
+
+  if (comparable < Math.floor(EXPECTED_QUOTE_COUNT * 0.8)) {
+    fail(`continuité impossible à contrôler : seulement ${comparable}/${EXPECTED_QUOTE_COUNT} titres comparables`);
+  }
+
+  const rate = matches / comparable;
+  if (rate < MIN_CONTINUITY_RATE) {
+    fail(
+      `continuité de séance insuffisante (${matches}/${comparable}, ${(rate * 100).toFixed(1)}%). ` +
+        `Exemples: ${mismatches.slice(0, 8).join(", ")}`,
+    );
+  }
+}
+
 async function previousFeed() {
   try {
     return JSON.parse(await readFile(OUTPUT_PATH, "utf8"));
@@ -236,6 +267,10 @@ async function main() {
     fail(
       `séance ${session.date} déclarée nouvelle mais les 47 cours/volumes/ouvertures/variations sont identiques à ${previousDate}`,
     );
+  }
+
+  if (previousDate && session.date > previousDate && previousQuotes.length === EXPECTED_QUOTE_COUNT) {
+    validateContinuity(previousQuotes, quotes);
   }
 
   if (previousDate === session.date && sameMarketData) {
