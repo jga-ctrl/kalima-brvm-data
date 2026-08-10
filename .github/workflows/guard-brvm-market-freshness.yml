@@ -2,13 +2,15 @@ name: Guard BRVM market freshness
 
 on:
   schedule:
-    - cron: "47 * * * *"
+    # Contrôles utiles seulement autour/après la clôture BRVM les jours ouvrés.
+    - cron: "47 15,17,19,21 * * 1-5"
   workflow_dispatch:
   pull_request:
     paths:
       - ".github/workflows/guard-brvm-market-freshness.yml"
       - ".github/workflows/update-brvm-market.yml"
       - "scripts/update-brvm-market.mjs"
+      - "scripts/market-calendar.mjs"
 
 permissions:
   contents: write
@@ -30,24 +32,18 @@ jobs:
         with:
           node-version: 22
 
-      - name: Check feed freshness
+      - name: Check certified session freshness
         id: freshness
         shell: bash
         run: |
           node --input-type=module -e '
             import { readFile } from "node:fs/promises";
-            let stale = true;
-            let ageMinutes = Number.POSITIVE_INFINITY;
-            try {
-              const feed = JSON.parse(await readFile("latest.json", "utf8"));
-              const fetchedAt = Date.parse(feed.fetchedAt);
-              if (Number.isFinite(fetchedAt)) {
-                ageMinutes = (Date.now() - fetchedAt) / 60000;
-                stale = ageMinutes > 75;
-              }
-            } catch {}
-            console.log(`Flux BRVM : age=${Number.isFinite(ageMinutes) ? ageMinutes.toFixed(1) : "inconnu"} min, relance=${stale}`);
-            process.stdout.write(`stale=${stale}\n`);
+            import { feedNeedsRefresh } from "./scripts/market-calendar.mjs";
+            let feed = null;
+            try { feed = JSON.parse(await readFile("latest.json", "utf8")); } catch {}
+            const result = feedNeedsRefresh(feed);
+            console.log(`Flux BRVM : refresh=${result.refresh} — ${result.reason}`);
+            process.stdout.write(`stale=${result.refresh}\n`);
           ' >> "$GITHUB_OUTPUT"
 
       - name: Validate feed updater on pull requests
@@ -59,13 +55,13 @@ jobs:
         run: node scripts/update-brvm-market.mjs
 
       - name: Publish repaired feed
-        if: github.event_name != 'pull_request' && steps.freshness.outputs.stale == 'true'
+        if: success() && github.event_name != 'pull_request' && steps.freshness.outputs.stale == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add latest.json
           if git diff --cached --quiet; then
-            echo "Le flux est déjà à jour."
+            echo "Aucune nouvelle séance certifiée à publier."
             exit 0
           fi
           git commit -m "Repair stale BRVM market feed"
