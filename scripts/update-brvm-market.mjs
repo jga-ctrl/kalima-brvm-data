@@ -125,8 +125,6 @@ function parseRows(html, sessionDate, sessionTime, fetchedAt) {
       name: cells[columns.name] || undefined,
       currency: "XOF",
       lastPrice,
-      // BRVM « Cours veille ». Ce champ n'est pas recalculé et n'est pas
-      // utilisé comme substitut à la Variation (%) officielle BRVM.
       previousClose: Number.isFinite(previousClose) ? previousClose : undefined,
       openPrice: Number.isFinite(openPrice) ? openPrice : undefined,
       dayChangePct: Number.isFinite(dayChangePct) ? dayChangePct : undefined,
@@ -147,6 +145,24 @@ function parseRows(html, sessionDate, sessionTime, fetchedAt) {
     });
   }
   return quotes;
+}
+
+function quoteFingerprint(quote) {
+  return [
+    quote.symbol,
+    quote.lastPrice ?? null,
+    quote.previousClose ?? null,
+    quote.openPrice ?? null,
+    quote.dayChangePct ?? null,
+    quote.dayVolume ?? null,
+  ].join(":");
+}
+
+function marketFingerprint(quotes) {
+  return [...quotes]
+    .sort((a, b) => a.symbol.localeCompare(b.symbol))
+    .map(quoteFingerprint)
+    .join("|");
 }
 
 async function previousFeed() {
@@ -209,6 +225,24 @@ async function main() {
       : null;
   if (previousDate && session.date < previousDate) {
     fail(`séance ${session.date} antérieure à la séance publiée ${previousDate}`);
+  }
+
+  const previousQuotes = Array.isArray(previous?.quotes) ? previous.quotes : [];
+  const sameMarketData =
+    previousQuotes.length === EXPECTED_QUOTE_COUNT &&
+    marketFingerprint(previousQuotes) === marketFingerprint(quotes);
+
+  if (previousDate && session.date > previousDate && sameMarketData) {
+    fail(
+      `séance ${session.date} déclarée nouvelle mais les 47 cours/volumes/ouvertures/variations sont identiques à ${previousDate}`,
+    );
+  }
+
+  if (previousDate === session.date && sameMarketData) {
+    console.log(
+      `Alimentation BRVM inchangée : séance ${session.date}, aucun changement de marché. Aucun fichier réécrit.`,
+    );
+    return;
   }
 
   const body = {
