@@ -12,10 +12,12 @@ on:
     paths:
       - ".github/workflows/update-brvm-market.yml"
       - "scripts/update-brvm-market.mjs"
+      - "scripts/verify-market-pipeline.mjs"
   pull_request:
     paths:
       - ".github/workflows/update-brvm-market.yml"
       - "scripts/update-brvm-market.mjs"
+      - "scripts/verify-market-pipeline.mjs"
 
 permissions:
   contents: write
@@ -38,6 +40,9 @@ jobs:
 
       - name: Fetch and validate 47 BRVM quotes
         run: node scripts/update-brvm-market.mjs
+
+      - name: Verify BRVM pipeline locks and feed integrity
+        run: node scripts/verify-market-pipeline.mjs
 
       - name: Publish latest validated feed
         if: success() && github.event_name != 'pull_request'
