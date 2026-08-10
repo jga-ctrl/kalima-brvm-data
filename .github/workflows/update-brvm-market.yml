@@ -2,7 +2,9 @@ name: Update BRVM market data
 
 on:
   schedule:
-    - cron: "17 * * * *"
+    # BRVM trading days only. Multiple post-market checks allow for delayed publication
+    # without generating hourly no-op commits overnight or during weekends.
+    - cron: "17 15,17,19,21 * * 1-5"
   workflow_dispatch:
   push:
     branches:
@@ -38,7 +40,7 @@ jobs:
         run: node scripts/update-brvm-market.mjs
 
       - name: Publish latest validated feed
-        if: github.event_name != 'pull_request'
+        if: success() && github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
