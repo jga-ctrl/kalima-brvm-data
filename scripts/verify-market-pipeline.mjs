@@ -30,6 +30,9 @@ assert(collector.includes("validateContinuity"), "contrôle de continuité absen
 assert(collector.includes("official-brvm-session-closed"), "certification de clôture officielle absente");
 
 assert(bocGate.includes("BOC_BASE_URL"), "source BOC officielle absente");
+assert(bocGate.includes("BFIN_URL"), "deuxième source officielle BRVM absente");
+assert(bocGate.includes("compareOfficialCloseTables"), "comparaison 47/47 des clôtures officielles absente");
+assert(bocGate.includes("EXPECTED_QUOTE_COUNT = 47"), "exigence 47/47 absente du verrou BOC");
 assert(bocGate.includes("bocUrlForDate"), "liaison BOC/date de séance absente");
 assert(bocGate.includes("signature !== \"%PDF\""), "validation PDF du BOC absente");
 assert(bocGate.includes("isClosedSession"), "BOC non conditionné à une séance fermée");
@@ -63,4 +66,4 @@ for (const quote of feed.quotes) {
 }
 assert(symbols.size === EXPECTED_QUOTE_COUNT, `univers=${symbols.size}/47`);
 
-console.log(`Pipeline BRVM verrouillé : ${symbols.size}/47, séance ${feed.sessionDate}, BOC obligatoire.`);
+console.log(`Pipeline BRVM verrouillé : ${symbols.size}/47, séance ${feed.sessionDate}, double source officielle + BOC obligatoires.`);
