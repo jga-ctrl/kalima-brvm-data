@@ -12,11 +12,13 @@ on:
     paths:
       - ".github/workflows/update-brvm-market.yml"
       - "scripts/update-brvm-market.mjs"
+      - "scripts/require-official-boc.mjs"
       - "scripts/verify-market-pipeline.mjs"
   pull_request:
     paths:
       - ".github/workflows/update-brvm-market.yml"
       - "scripts/update-brvm-market.mjs"
+      - "scripts/require-official-boc.mjs"
       - "scripts/verify-market-pipeline.mjs"
 
 permissions:
@@ -37,6 +39,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Require official BRVM BOC for the same closed session
+        run: node scripts/require-official-boc.mjs
 
       - name: Fetch and validate 47 BRVM quotes
         run: node scripts/update-brvm-market.mjs
