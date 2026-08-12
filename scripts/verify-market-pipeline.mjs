@@ -29,7 +29,8 @@ assert(collector.includes("previousDate === expectedPreviousSession"), "continui
 assert(collector.includes("validateContinuity"), "contrôle de continuité absent");
 assert(collector.includes("official-brvm-session-closed"), "certification de clôture officielle absente");
 
-assert(bocGate.includes("BOC_BASE_URL"), "source BOC officielle absente");
+assert(bocGate.includes('https://bfin.brvm.org/boc/BOC_JOUR'), "chemin PDF BOC officiel BRVM incorrect");
+assert(!bocGate.includes("boc_jour.aspx/BOC_JOUR"), "ancien chemin BOC HTML encore présent");
 assert(bocGate.includes("BFIN_URL"), "deuxième source officielle BRVM absente");
 assert(bocGate.includes("compareOfficialCloseTables"), "comparaison 47/47 des clôtures officielles absente");
 assert(bocGate.includes("EXPECTED_QUOTE_COUNT = 47"), "exigence 47/47 absente du verrou BOC");
