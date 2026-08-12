@@ -10,6 +10,7 @@ on:
       - ".github/workflows/guard-brvm-market-freshness.yml"
       - ".github/workflows/update-brvm-market.yml"
       - "scripts/update-brvm-market.mjs"
+      - "scripts/require-official-boc.mjs"
       - "scripts/market-calendar.mjs"
 
 permissions:
@@ -45,6 +46,10 @@ jobs:
             console.log(`Flux BRVM : refresh=${result.refresh} — ${result.reason}`);
             process.stdout.write(`stale=${result.refresh}\n`);
           ' >> "$GITHUB_OUTPUT"
+
+      - name: Require official BRVM BOC for the same closed session
+        if: github.event_name == 'pull_request' || steps.freshness.outputs.stale == 'true'
+        run: node scripts/require-official-boc.mjs
 
       - name: Validate feed updater on pull requests
         if: github.event_name == 'pull_request'
