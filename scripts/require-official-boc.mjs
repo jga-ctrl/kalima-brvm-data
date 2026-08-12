@@ -1,6 +1,6 @@
 const BRVM_URL = "https://www.brvm.org/fr/cours-actions/0";
 const BFIN_URL = "https://bfin.brvm.org/Activites_marche.aspx";
-const BOC_BASE_URL = "https://bfin.brvm.org/boc/boc_jour.aspx/BOC_JOUR";
+const BOC_BASE_URL = "https://bfin.brvm.org/boc/BOC_JOUR";
 const EXPECTED_QUOTE_COUNT = 47;
 
 function fail(message) {
