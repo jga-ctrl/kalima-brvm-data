@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 
 const EXPECTED_QUOTE_COUNT = 47;
 const collectorPath = "scripts/update-brvm-market.mjs";
+const bocGatePath = "scripts/require-official-boc.mjs";
 const workflowPath = ".github/workflows/update-brvm-market.yml";
 const guardWorkflowPath = ".github/workflows/guard-brvm-market-freshness.yml";
 const calendarPath = "scripts/market-calendar.mjs";
@@ -11,8 +12,9 @@ function assert(condition, message) {
   if (!condition) throw new Error(`Verrou pipeline BRVM rompu : ${message}`);
 }
 
-const [collector, workflow, guardWorkflow, calendar, feedRaw] = await Promise.all([
+const [collector, bocGate, workflow, guardWorkflow, calendar, feedRaw] = await Promise.all([
   readFile(collectorPath, "utf8"),
+  readFile(bocGatePath, "utf8"),
   readFile(workflowPath, "utf8"),
   readFile(guardWorkflowPath, "utf8"),
   readFile(calendarPath, "utf8"),
@@ -27,10 +29,19 @@ assert(collector.includes("previousDate === expectedPreviousSession"), "continui
 assert(collector.includes("validateContinuity"), "contrôle de continuité absent");
 assert(collector.includes("official-brvm-session-closed"), "certification de clôture officielle absente");
 
+assert(bocGate.includes("BOC_BASE_URL"), "source BOC officielle absente");
+assert(bocGate.includes("bocUrlForDate"), "liaison BOC/date de séance absente");
+assert(bocGate.includes("signature !== \"%PDF\""), "validation PDF du BOC absente");
+assert(bocGate.includes("isClosedSession"), "BOC non conditionné à une séance fermée");
+
+assert(workflow.includes("node scripts/require-official-boc.mjs"), "verrou BOC absent du workflow principal");
+assert(workflow.indexOf("node scripts/require-official-boc.mjs") < workflow.indexOf("node scripts/update-brvm-market.mjs"), "verrou BOC exécuté après le collecteur principal");
 assert(workflow.includes("if: success()"), "publication principale non conditionnée au succès");
 assert(workflow.includes("git diff --cached --quiet"), "protection anti-commit no-op absente");
 assert(/cron:\s*"[^"]*1-5"/.test(workflow), "planification principale limitée aux jours ouvrés absente");
 
+assert(guardWorkflow.includes("node scripts/require-official-boc.mjs"), "verrou BOC absent du workflow de réparation");
+assert(guardWorkflow.indexOf("node scripts/require-official-boc.mjs") < guardWorkflow.indexOf("node scripts/update-brvm-market.mjs"), "verrou BOC exécuté après le collecteur de réparation");
 assert(guardWorkflow.includes("feedNeedsRefresh"), "garde-fou encore basé sur fetchedAt/75 min");
 assert(!guardWorkflow.includes("ageMinutes > 75"), "ancienne règle 75 minutes encore active");
 assert(/cron:\s*"[^"]*1-5"/.test(guardWorkflow), "garde-fou non limité aux jours ouvrés");
@@ -52,4 +63,4 @@ for (const quote of feed.quotes) {
 }
 assert(symbols.size === EXPECTED_QUOTE_COUNT, `univers=${symbols.size}/47`);
 
-console.log(`Pipeline BRVM verrouillé : ${symbols.size}/47, séance ${feed.sessionDate}.`);
+console.log(`Pipeline BRVM verrouillé : ${symbols.size}/47, séance ${feed.sessionDate}, BOC obligatoire.`);
