@@ -1,5 +1,7 @@
 const BRVM_URL = "https://www.brvm.org/fr/cours-actions/0";
+const BFIN_URL = "https://bfin.brvm.org/Activites_marche.aspx";
 const BOC_BASE_URL = "https://bfin.brvm.org/boc/boc_jour.aspx/BOC_JOUR";
+const EXPECTED_QUOTE_COUNT = 47;
 
 function fail(message) {
   throw new Error(`Verrou BOC BRVM refusé : ${message}`);
@@ -13,6 +15,21 @@ function decodeHtml(value) {
     .replace(/&#39;|&apos;/gi, "'")
     .replace(/&quot;/gi, '"')
     .trim();
+}
+
+function normalizeHeader(value) {
+  return decodeHtml(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function parseFrNumber(raw) {
+  const cleaned = raw.replace(/\s|\u00a0/g, "").replace(/,/g, ".");
+  const value = Number.parseFloat(cleaned);
+  return Number.isFinite(value) ? value : Number.NaN;
 }
 
 function isClosedSession(html) {
@@ -39,31 +56,105 @@ function extractSessionDate(html) {
   return date.toISOString().slice(0, 10);
 }
 
+function extractColumnMap(html, kind) {
+  const rowPattern = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+  let rowMatch;
+  while ((rowMatch = rowPattern.exec(html))) {
+    const headers = [...rowMatch[1].matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)].map((cell) =>
+      normalizeHeader(cell[1]),
+    );
+    if (!headers.length) continue;
+    const find = (predicate) => headers.findIndex(predicate);
+    if (kind === "cours-actions") {
+      const map = {
+        symbol: find((h) => h === "symbole"),
+        close: find((h) => h.startsWith("cours cloture")),
+      };
+      if (map.symbol >= 0 && map.close >= 0) return map;
+    } else {
+      const map = {
+        symbol: find((h) => h === "code"),
+        close: find((h) => h === "cours jour" || h === "current close" || h === "cours actuel"),
+      };
+      if (map.symbol >= 0 && map.close >= 0) return map;
+    }
+  }
+  return null;
+}
+
+function extractCloseMap(html, kind) {
+  const columns = extractColumnMap(html, kind);
+  if (!columns) fail(`en-têtes ${kind} introuvables`);
+  const quotes = new Map();
+  const rowPattern = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+  let rowMatch;
+  while ((rowMatch = rowPattern.exec(html))) {
+    const cells = [...rowMatch[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map((cell) => decodeHtml(cell[1]));
+    if (!cells.length) continue;
+    const symbol = (cells[columns.symbol] ?? "").toUpperCase();
+    if (!/^[A-Z]{3,6}$/.test(symbol) || quotes.has(symbol)) continue;
+    const close = parseFrNumber(cells[columns.close] ?? "");
+    if (!Number.isFinite(close) || close <= 0) continue;
+    quotes.set(symbol, close);
+  }
+  return quotes;
+}
+
+function compareOfficialCloseTables(coursActions, bfin) {
+  if (coursActions.size !== EXPECTED_QUOTE_COUNT) {
+    fail(`page cours actions incomplète : ${coursActions.size}/${EXPECTED_QUOTE_COUNT}`);
+  }
+  if (bfin.size !== EXPECTED_QUOTE_COUNT) {
+    fail(`base financière BRVM incomplète : ${bfin.size}/${EXPECTED_QUOTE_COUNT}`);
+  }
+  const mismatches = [];
+  for (const [symbol, price] of coursActions) {
+    const official = bfin.get(symbol);
+    if (!Number.isFinite(official)) mismatches.push(`${symbol}:absent BFIN`);
+    else if (official !== price) mismatches.push(`${symbol}:${price}!=${official}`);
+  }
+  if (mismatches.length) {
+    fail(`écart entre les 2 sources officielles BRVM (${mismatches.length}/47). Exemples: ${mismatches.slice(0, 8).join(", ")}`);
+  }
+}
+
 function bocUrlForDate(date) {
   return `${BOC_BASE_URL}/BOC_${date.replaceAll("-", "")}.pdf`;
 }
 
-async function main() {
-  const marketResponse = await fetch(BRVM_URL, {
+async function fetchHtml(url) {
+  const response = await fetch(url, {
     headers: {
-      "User-Agent": "Mozilla/5.0 (compatible; KalimaBourse-BOC-Gate/2.0)",
-      "Accept-Language": "fr-FR,fr;q=0.9",
+      "User-Agent": "Mozilla/5.0 (compatible; KalimaBourse-BOC-Gate/2.1)",
+      "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
       Accept: "text/html,application/xhtml+xml",
     },
     signal: AbortSignal.timeout(30_000),
   });
-  if (!marketResponse.ok) fail(`page cours actions inaccessible (HTTP ${marketResponse.status})`);
-  const html = await marketResponse.text();
+  if (!response.ok) fail(`${url} inaccessible (HTTP ${response.status})`);
+  return await response.text();
+}
 
-  // Si la séance n'est pas fermée, le collecteur fera un no-op. Aucun BOC n'est exigé.
-  if (!isClosedSession(html)) {
+async function main() {
+  const marketHtml = await fetchHtml(BRVM_URL);
+
+  if (!isClosedSession(marketHtml)) {
     console.log("BOC gate : séance encore ouverte, aucune publication de clôture autorisée.");
     return;
   }
 
-  const sessionDate = extractSessionDate(html);
+  const sessionDate = extractSessionDate(marketHtml);
   if (!sessionDate) fail("date officielle de séance introuvable sur la page BRVM");
 
+  // 1) Les 47 clôtures de la page Cours actions doivent être identiques aux
+  //    47 clôtures de la Base de Données Financière BRVM.
+  const bfinHtml = await fetchHtml(BFIN_URL);
+  compareOfficialCloseTables(
+    extractCloseMap(marketHtml, "cours-actions"),
+    extractCloseMap(bfinHtml, "bfin"),
+  );
+
+  // 2) Le BOC officiel de cette même date doit exister et être un vrai PDF.
   const bocUrl = bocUrlForDate(sessionDate);
   let response;
   try {
@@ -71,7 +162,7 @@ async function main() {
       headers: {
         Accept: "application/pdf,*/*;q=0.8",
         Range: "bytes=0-15",
-        "User-Agent": "KalimaBourse-BOC-Gate/2.0",
+        "User-Agent": "KalimaBourse-BOC-Gate/2.1",
       },
       signal: AbortSignal.timeout(20_000),
       redirect: "follow",
@@ -91,7 +182,7 @@ async function main() {
     fail(`BOC officiel ${sessionDate} invalide : la ressource BRVM n'est pas un PDF`);
   }
 
-  console.log(`BOC gate validé : séance ${sessionDate} — ${bocUrl}`);
+  console.log(`BOC gate validé : 47/47 concordants, séance ${sessionDate}, BOC officiel présent.`);
 }
 
 await main();
