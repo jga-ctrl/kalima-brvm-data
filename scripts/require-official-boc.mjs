@@ -91,7 +91,7 @@ function extractColumnMap(html, kind) {
 
 function extractCloseMap(html, kind) {
   const columns = extractColumnMap(html, kind);
-  if (!columns) fail(`en-têtes ${kind} introuvables`);
+  if (!columns) return null;
   const quotes = new Map();
   const rowPattern = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
   let rowMatch;
@@ -108,8 +108,13 @@ function extractCloseMap(html, kind) {
 }
 
 function compareOfficialCloseTables(coursActions, bfin) {
-  if (coursActions.size !== EXPECTED_QUOTE_COUNT) fail(`page cours actions incomplète : ${coursActions.size}/${EXPECTED_QUOTE_COUNT}`);
-  if (bfin.size !== EXPECTED_QUOTE_COUNT) fail(`base financière BRVM incomplète : ${bfin.size}/${EXPECTED_QUOTE_COUNT}`);
+  if (!coursActions || coursActions.size !== EXPECTED_QUOTE_COUNT) {
+    return { ready: false, reason: `page cours actions en cours de publication : ${coursActions?.size ?? 0}/${EXPECTED_QUOTE_COUNT}` };
+  }
+  if (!bfin || bfin.size !== EXPECTED_QUOTE_COUNT) {
+    return { ready: false, reason: `base financière BRVM en cours de publication : ${bfin?.size ?? 0}/${EXPECTED_QUOTE_COUNT}` };
+  }
+
   const mismatches = [];
   for (const [symbol, price] of coursActions) {
     const official = bfin.get(symbol);
@@ -119,6 +124,7 @@ function compareOfficialCloseTables(coursActions, bfin) {
   if (mismatches.length) {
     fail(`écart entre les 2 sources officielles BRVM (${mismatches.length}/47). Exemples: ${mismatches.slice(0, 8).join(", ")}`);
   }
+  return { ready: true, reason: "47/47 concordants" };
 }
 
 function bocUrlForDate(date) {
@@ -128,19 +134,26 @@ function bocUrlForDate(date) {
 async function fetchHtml(url) {
   const response = await fetch(url, {
     headers: {
-      "User-Agent": "Mozilla/5.0 (compatible; KalimaBourse-BOC-Gate/2.2)",
+      "User-Agent": "Mozilla/5.0 (compatible; KalimaBourse-BOC-Gate/2.3)",
       "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
       Accept: "text/html,application/xhtml+xml",
     },
     signal: AbortSignal.timeout(30_000),
   });
-  if (!response.ok) fail(`${url} inaccessible (HTTP ${response.status})`);
+  if (!response.ok) throw new Error(`${url} inaccessible (HTTP ${response.status})`);
   return await response.text();
 }
 
 async function main() {
   await setReady("false");
-  const marketHtml = await fetchHtml(BRVM_URL);
+
+  let marketHtml;
+  try {
+    marketHtml = await fetchHtml(BRVM_URL);
+  } catch (error) {
+    console.log(`BOC gate : page Cours actions temporairement indisponible (${error instanceof Error ? error.message : String(error)}). Nouvelle tentative plus tard.`);
+    return;
+  }
 
   if (!isClosedSession(marketHtml)) {
     console.log("BOC gate : séance encore ouverte. Nouvelle tentative au prochain passage planifié.");
@@ -148,13 +161,27 @@ async function main() {
   }
 
   const sessionDate = extractSessionDate(marketHtml);
-  if (!sessionDate) fail("date officielle de séance introuvable sur la page BRVM");
+  if (!sessionDate) {
+    console.log("BOC gate : métadonnées de séance pas encore stabilisées. Nouvelle tentative plus tard.");
+    return;
+  }
 
-  const bfinHtml = await fetchHtml(BFIN_URL);
-  compareOfficialCloseTables(
+  let bfinHtml;
+  try {
+    bfinHtml = await fetchHtml(BFIN_URL);
+  } catch (error) {
+    console.log(`BOC gate : base financière temporairement indisponible (${error instanceof Error ? error.message : String(error)}). Nouvelle tentative plus tard.`);
+    return;
+  }
+
+  const comparison = compareOfficialCloseTables(
     extractCloseMap(marketHtml, "cours-actions"),
     extractCloseMap(bfinHtml, "bfin"),
   );
+  if (!comparison.ready) {
+    console.log(`BOC gate : ${comparison.reason}. Pas de publication; nouvelle tentative au prochain passage.`);
+    return;
+  }
 
   const bocUrl = bocUrlForDate(sessionDate);
   let response;
@@ -163,7 +190,7 @@ async function main() {
       headers: {
         Accept: "application/pdf,*/*;q=0.8",
         Range: "bytes=0-15",
-        "User-Agent": "KalimaBourse-BOC-Gate/2.2",
+        "User-Agent": "KalimaBourse-BOC-Gate/2.3",
       },
       signal: AbortSignal.timeout(20_000),
       redirect: "follow",
