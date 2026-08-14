@@ -1,3 +1,5 @@
+import { appendFile } from "node:fs/promises";
+
 const BRVM_URL = "https://www.brvm.org/fr/cours-actions/0";
 const BFIN_URL = "https://bfin.brvm.org/Activites_marche.aspx";
 const BOC_BASE_URL = "https://bfin.brvm.org/boc/BOC_JOUR";
@@ -5,6 +7,12 @@ const EXPECTED_QUOTE_COUNT = 47;
 
 function fail(message) {
   throw new Error(`Verrou BOC BRVM refusé : ${message}`);
+}
+
+async function setReady(value) {
+  if (process.env.GITHUB_OUTPUT) {
+    await appendFile(process.env.GITHUB_OUTPUT, `ready=${value}\n`, "utf8");
+  }
 }
 
 function decodeHtml(value) {
@@ -71,20 +79,19 @@ function extractColumnMap(html, kind) {
         close: find((h) => h.startsWith("cours cloture")),
       };
       if (map.symbol >= 0 && map.close >= 0) return map;
-    } else {
-      const map = {
-        symbol: find((h) => h === "code"),
-        close: find((h) => h === "cours jour" || h === "current close" || h === "cours actuel"),
-      };
-      if (map.symbol >= 0 && map.close >= 0) return map;
     }
+    const map = {
+      symbol: find((h) => h === "code"),
+      close: find((h) => h === "cours jour" || h === "current close" || h === "cours actuel"),
+    };
+    if (map.symbol >= 0 && map.close >= 0) return map;
   }
   return null;
 }
 
 function extractCloseMap(html, kind) {
   const columns = extractColumnMap(html, kind);
-  if (!columns) fail(`en-têtes ${kind} introuvables`);
+  if (!columns) return null;
   const quotes = new Map();
   const rowPattern = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
   let rowMatch;
@@ -101,12 +108,13 @@ function extractCloseMap(html, kind) {
 }
 
 function compareOfficialCloseTables(coursActions, bfin) {
-  if (coursActions.size !== EXPECTED_QUOTE_COUNT) {
-    fail(`page cours actions incomplète : ${coursActions.size}/${EXPECTED_QUOTE_COUNT}`);
+  if (!coursActions || coursActions.size !== EXPECTED_QUOTE_COUNT) {
+    return { ready: false, reason: `page cours actions en cours de publication : ${coursActions?.size ?? 0}/${EXPECTED_QUOTE_COUNT}` };
   }
-  if (bfin.size !== EXPECTED_QUOTE_COUNT) {
-    fail(`base financière BRVM incomplète : ${bfin.size}/${EXPECTED_QUOTE_COUNT}`);
+  if (!bfin || bfin.size !== EXPECTED_QUOTE_COUNT) {
+    return { ready: false, reason: `base financière BRVM en cours de publication : ${bfin?.size ?? 0}/${EXPECTED_QUOTE_COUNT}` };
   }
+
   const mismatches = [];
   for (const [symbol, price] of coursActions) {
     const official = bfin.get(symbol);
@@ -116,6 +124,7 @@ function compareOfficialCloseTables(coursActions, bfin) {
   if (mismatches.length) {
     fail(`écart entre les 2 sources officielles BRVM (${mismatches.length}/47). Exemples: ${mismatches.slice(0, 8).join(", ")}`);
   }
+  return { ready: true, reason: "47/47 concordants" };
 }
 
 function bocUrlForDate(date) {
@@ -125,36 +134,55 @@ function bocUrlForDate(date) {
 async function fetchHtml(url) {
   const response = await fetch(url, {
     headers: {
-      "User-Agent": "Mozilla/5.0 (compatible; KalimaBourse-BOC-Gate/2.1)",
+      "User-Agent": "Mozilla/5.0 (compatible; KalimaBourse-BOC-Gate/2.3)",
       "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
       Accept: "text/html,application/xhtml+xml",
     },
     signal: AbortSignal.timeout(30_000),
   });
-  if (!response.ok) fail(`${url} inaccessible (HTTP ${response.status})`);
+  if (!response.ok) throw new Error(`${url} inaccessible (HTTP ${response.status})`);
   return await response.text();
 }
 
 async function main() {
-  const marketHtml = await fetchHtml(BRVM_URL);
+  await setReady("false");
+
+  let marketHtml;
+  try {
+    marketHtml = await fetchHtml(BRVM_URL);
+  } catch (error) {
+    console.log(`BOC gate : page Cours actions temporairement indisponible (${error instanceof Error ? error.message : String(error)}). Nouvelle tentative plus tard.`);
+    return;
+  }
 
   if (!isClosedSession(marketHtml)) {
-    console.log("BOC gate : séance encore ouverte, aucune publication de clôture autorisée.");
+    console.log("BOC gate : séance encore ouverte. Nouvelle tentative au prochain passage planifié.");
     return;
   }
 
   const sessionDate = extractSessionDate(marketHtml);
-  if (!sessionDate) fail("date officielle de séance introuvable sur la page BRVM");
+  if (!sessionDate) {
+    console.log("BOC gate : métadonnées de séance pas encore stabilisées. Nouvelle tentative plus tard.");
+    return;
+  }
 
-  // 1) Les 47 clôtures de la page Cours actions doivent être identiques aux
-  //    47 clôtures de la Base de Données Financière BRVM.
-  const bfinHtml = await fetchHtml(BFIN_URL);
-  compareOfficialCloseTables(
+  let bfinHtml;
+  try {
+    bfinHtml = await fetchHtml(BFIN_URL);
+  } catch (error) {
+    console.log(`BOC gate : base financière temporairement indisponible (${error instanceof Error ? error.message : String(error)}). Nouvelle tentative plus tard.`);
+    return;
+  }
+
+  const comparison = compareOfficialCloseTables(
     extractCloseMap(marketHtml, "cours-actions"),
     extractCloseMap(bfinHtml, "bfin"),
   );
+  if (!comparison.ready) {
+    console.log(`BOC gate : ${comparison.reason}. Pas de publication; nouvelle tentative au prochain passage.`);
+    return;
+  }
 
-  // 2) Le BOC officiel de cette même date doit exister et être un vrai PDF.
   const bocUrl = bocUrlForDate(sessionDate);
   let response;
   try {
@@ -162,17 +190,19 @@ async function main() {
       headers: {
         Accept: "application/pdf,*/*;q=0.8",
         Range: "bytes=0-15",
-        "User-Agent": "KalimaBourse-BOC-Gate/2.1",
+        "User-Agent": "KalimaBourse-BOC-Gate/2.3",
       },
       signal: AbortSignal.timeout(20_000),
       redirect: "follow",
     });
   } catch (error) {
-    fail(`BOC officiel ${sessionDate} inaccessible (${error instanceof Error ? error.message : String(error)})`);
+    console.log(`BOC gate : BOC ${sessionDate} temporairement inaccessible (${error instanceof Error ? error.message : String(error)}). Pas de publication; nouvelle tentative plus tard.`);
+    return;
   }
 
   if (!response.ok && response.status !== 206) {
-    fail(`BOC officiel ${sessionDate} non disponible (HTTP ${response.status})`);
+    console.log(`BOC gate : BOC officiel ${sessionDate} pas encore disponible (HTTP ${response.status}). Pas de publication; nouvelle tentative plus tard.`);
+    return;
   }
 
   const bytes = new Uint8Array(await response.arrayBuffer());
@@ -182,6 +212,7 @@ async function main() {
     fail(`BOC officiel ${sessionDate} invalide : la ressource BRVM n'est pas un PDF`);
   }
 
+  await setReady("true");
   console.log(`BOC gate validé : 47/47 concordants, séance ${sessionDate}, BOC officiel présent.`);
 }
 

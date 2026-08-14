@@ -2,7 +2,6 @@ name: Guard BRVM market freshness
 
 on:
   schedule:
-    # Contrôles utiles seulement autour/après la clôture BRVM les jours ouvrés.
     - cron: "47 15,17,19,21 * * 1-5"
   workflow_dispatch:
   pull_request:
@@ -48,19 +47,24 @@ jobs:
           ' >> "$GITHUB_OUTPUT"
 
       - name: Require official BRVM BOC for the same closed session
+        id: boc
         if: github.event_name == 'pull_request' || steps.freshness.outputs.stale == 'true'
         run: node scripts/require-official-boc.mjs
 
       - name: Validate feed updater on pull requests
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && steps.boc.outputs.ready == 'true'
         run: node scripts/update-brvm-market.mjs
 
       - name: Repair stale feed
-        if: github.event_name != 'pull_request' && steps.freshness.outputs.stale == 'true'
+        if: github.event_name != 'pull_request' && steps.freshness.outputs.stale == 'true' && steps.boc.outputs.ready == 'true'
         run: node scripts/update-brvm-market.mjs
 
+      - name: Waiting for official BOC
+        if: steps.freshness.outputs.stale == 'true' && steps.boc.outputs.ready != 'true'
+        run: echo "Flux à rafraîchir mais BOC officiel pas encore disponible. Nouvelle tentative planifiée; aucun échec."
+
       - name: Publish repaired feed
-        if: success() && github.event_name != 'pull_request' && steps.freshness.outputs.stale == 'true'
+        if: success() && github.event_name != 'pull_request' && steps.freshness.outputs.stale == 'true' && steps.boc.outputs.ready == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
