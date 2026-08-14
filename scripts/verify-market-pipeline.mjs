@@ -26,8 +26,10 @@ assert(collector.includes("marketFingerprint"), "détection de séance recyclée
 assert(collector.includes("isClosedSession"), "contrôle Séance fermée absent");
 assert(collector.includes("previousWeekday"), "gestion des séances manquantes absente");
 assert(collector.includes("previousDate === expectedPreviousSession"), "continuité conditionnelle absente");
-assert(collector.includes("validateContinuity"), "contrôle de continuité absent");
+assert(collector.includes("assessContinuity"), "diagnostic de continuité absent");
+assert(collector.includes("Alerte continuité BRVM (non bloquante)"), "continuité encore potentiellement bloquante");
 assert(collector.includes("official-brvm-session-closed"), "certification de clôture officielle absente");
+assert(collector.includes("continuityStatus"), "statut de continuité absent de la certification");
 
 assert(bocGate.includes('https://bfin.brvm.org/boc/BOC_JOUR'), "chemin PDF BOC officiel BRVM incorrect");
 assert(!bocGate.includes("boc_jour.aspx/BOC_JOUR"), "ancien chemin BOC HTML encore présent");
