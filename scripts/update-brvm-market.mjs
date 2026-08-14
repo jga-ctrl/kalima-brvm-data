@@ -165,7 +165,7 @@ function marketFingerprint(quotes) {
     .join("|");
 }
 
-function validateContinuity(previousQuotes, quotes) {
+function assessContinuity(previousQuotes, quotes) {
   const previousBySymbol = new Map(previousQuotes.map((quote) => [quote.symbol, quote]));
   let comparable = 0;
   let matches = 0;
@@ -179,16 +179,40 @@ function validateContinuity(previousQuotes, quotes) {
     else mismatches.push(`${quote.symbol}:${prior.lastPrice}->veille=${quote.previousClose}`);
   }
 
-  if (comparable < Math.floor(EXPECTED_QUOTE_COUNT * 0.8)) {
-    fail(`continuité impossible à contrôler : ${comparable}/${EXPECTED_QUOTE_COUNT} titres comparables`);
+  const minimumComparable = Math.floor(EXPECTED_QUOTE_COUNT * 0.8);
+  if (comparable < minimumComparable) {
+    return {
+      status: "warning",
+      comparable,
+      matches,
+      rate: comparable ? matches / comparable : 0,
+      reason: `continuité impossible à contrôler : ${comparable}/${EXPECTED_QUOTE_COUNT} titres comparables`,
+      mismatches,
+    };
   }
+
   const rate = matches / comparable;
   if (rate < MIN_CONTINUITY_RATE) {
-    fail(
-      `continuité de séance insuffisante (${matches}/${comparable}, ${(rate * 100).toFixed(1)}%). ` +
-      `Exemples: ${mismatches.slice(0, 8).join(", ")}`,
-    );
+    return {
+      status: "warning",
+      comparable,
+      matches,
+      rate,
+      reason:
+        `continuité de séance insuffisante (${matches}/${comparable}, ${(rate * 100).toFixed(1)}%). ` +
+        `Exemples: ${mismatches.slice(0, 8).join(", ")}`,
+      mismatches,
+    };
   }
+
+  return {
+    status: "ok",
+    comparable,
+    matches,
+    rate,
+    reason: `continuité validée (${matches}/${comparable}, ${(rate * 100).toFixed(1)}%)`,
+    mismatches,
+  };
 }
 
 async function previousFeed() {
@@ -260,13 +284,27 @@ async function main() {
     fail(`nouvelle date ${session.date} mais données de marché recyclées depuis ${previousDate}`);
   }
 
-  // La continuité n'est bloquante que si la dernière séance enregistrée est
-  // exactement la veille ouvrée attendue. Si une séance manque dans l'historique
-  // local, on ne compare pas artificiellement deux jours non consécutifs.
+  // Le BOC officiel 47/47 de la même séance est le verrou de certification.
+  // La continuité J-1 reste un diagnostic utile, mais elle ne doit plus bloquer
+  // une séance officielle complète : certains "cours veille" BRVM ne reflètent
+  // pas toujours le dernier cours publié par notre flux précédent.
   const expectedPreviousSession = previousWeekday(session.date);
   const continuityChecked =
     previousDate === expectedPreviousSession && previousQuotes.length === EXPECTED_QUOTE_COUNT;
-  if (continuityChecked) validateContinuity(previousQuotes, quotes);
+  const continuity = continuityChecked
+    ? assessContinuity(previousQuotes, quotes)
+    : {
+        status: "not-checked",
+        comparable: 0,
+        matches: 0,
+        rate: null,
+        reason: "séance intermédiaire manquante ou historique précédent incomplet",
+        mismatches: [],
+      };
+
+  if (continuity.status === "warning") {
+    console.warn(`Alerte continuité BRVM (non bloquante) : ${continuity.reason}`);
+  }
 
   const body = {
     schemaVersion: "2.0",
@@ -279,6 +317,11 @@ async function main() {
       sessionDate: session.date,
       sourceUrl: BRVM_URL,
       continuityChecked,
+      continuityStatus: continuity.status,
+      continuityRate: continuity.rate,
+      continuityMatches: continuity.matches,
+      continuityComparable: continuity.comparable,
+      continuityReason: continuity.reason,
       previousPublishedSession: previousDate,
     },
     sessionDate: session.date,
@@ -289,8 +332,12 @@ async function main() {
   await mkdir(dirname(OUTPUT_PATH), { recursive: true });
   await writeFile(OUTPUT_PATH, `${JSON.stringify(body, null, 2)}\n`, "utf8");
   console.log(
-    `Alimentation BRVM certifiée : ${quotes.length}/47 — séance fermée ${session.date} ${session.time}.` +
-    (continuityChecked ? " Continuité validée." : " Continuité non exigée (séance intermédiaire manquante)."),
+    `Alimentation BRVM certifiée : ${quotes.length}/47 — séance fermée ${session.date} ${session.time}. ` +
+    (continuity.status === "ok"
+      ? "Continuité validée."
+      : continuity.status === "warning"
+        ? "Continuité en alerte non bloquante; BOC officiel prioritaire."
+        : "Continuité non exigée."),
   );
 }
 
