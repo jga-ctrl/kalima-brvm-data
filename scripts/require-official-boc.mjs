@@ -3,7 +3,7 @@ import { appendFile } from "node:fs/promises";
 const BRVM_URL = "https://www.brvm.org/fr/cours-actions/0";
 const BFIN_URL = "https://bfin.brvm.org/Activites_marche.aspx";
 const BOC_BASE_URL = "https://bfin.brvm.org/boc/BOC_JOUR";
-const EXPECTED_QUOTE_COUNT = 47;
+const EXPECTED_QUOTE_COUNT = 48;
 
 function fail(message) {
   throw new Error(`Verrou BOC BRVM refusé : ${message}`);
@@ -122,9 +122,9 @@ function compareOfficialCloseTables(coursActions, bfin) {
     else if (official !== price) mismatches.push(`${symbol}:${price}!=${official}`);
   }
   if (mismatches.length) {
-    fail(`écart entre les 2 sources officielles BRVM (${mismatches.length}/47). Exemples: ${mismatches.slice(0, 8).join(", ")}`);
+    fail(`écart entre les 2 sources officielles BRVM (${mismatches.length}/${EXPECTED_QUOTE_COUNT}). Exemples: ${mismatches.slice(0, 8).join(", ")}`);
   }
-  return { ready: true, reason: "47/47 concordants" };
+  return { ready: true, reason: `${EXPECTED_QUOTE_COUNT}/${EXPECTED_QUOTE_COUNT} concordants` };
 }
 
 function bocUrlForDate(date) {
@@ -213,7 +213,7 @@ async function main() {
   }
 
   await setReady("true");
-  console.log(`BOC gate validé : 47/47 concordants, séance ${sessionDate}, BOC officiel présent.`);
+  console.log(`BOC gate validé : ${EXPECTED_QUOTE_COUNT}/${EXPECTED_QUOTE_COUNT} concordants, séance ${sessionDate}, BOC officiel présent.`);
 }
 
 await main();
