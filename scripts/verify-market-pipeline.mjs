@@ -1,6 +1,8 @@
 import { readFile } from "node:fs/promises";
 
-const EXPECTED_QUOTE_COUNT = 47;
+const EXPECTED_QUOTE_COUNT = 48;
+const LEGACY_QUOTE_COUNT = 47;
+const LEGACY_LAST_SESSION = "2026-09-15";
 const collectorPath = "scripts/update-brvm-market.mjs";
 const bocGatePath = "scripts/require-official-boc.mjs";
 const workflowPath = ".github/workflows/update-brvm-market.yml";
@@ -21,7 +23,7 @@ const [collector, bocGate, workflow, guardWorkflow, calendar, feedRaw] = await P
   readFile(feedPath, "utf8"),
 ]);
 
-assert(collector.includes("EXPECTED_QUOTE_COUNT = 47"), "contrôle 47/47 absent");
+assert(collector.includes("EXPECTED_QUOTE_COUNT = 48"), "contrôle 48/48 absent");
 assert(collector.includes("marketFingerprint"), "détection de séance recyclée absente");
 assert(collector.includes("isClosedSession"), "contrôle Séance fermée absent");
 assert(collector.includes("previousWeekday"), "gestion des séances manquantes absente");
@@ -34,8 +36,8 @@ assert(collector.includes("continuityStatus"), "statut de continuité absent de 
 assert(bocGate.includes('https://bfin.brvm.org/boc/BOC_JOUR'), "chemin PDF BOC officiel BRVM incorrect");
 assert(!bocGate.includes("boc_jour.aspx/BOC_JOUR"), "ancien chemin BOC HTML encore présent");
 assert(bocGate.includes("BFIN_URL"), "deuxième source officielle BRVM absente");
-assert(bocGate.includes("compareOfficialCloseTables"), "comparaison 47/47 des clôtures officielles absente");
-assert(bocGate.includes("EXPECTED_QUOTE_COUNT = 47"), "exigence 47/47 absente du verrou BOC");
+assert(bocGate.includes("compareOfficialCloseTables"), "comparaison 48/48 des clôtures officielles absente");
+assert(bocGate.includes("EXPECTED_QUOTE_COUNT = 48"), "exigence 48/48 absente du verrou BOC");
 assert(bocGate.includes("bocUrlForDate"), "liaison BOC/date de séance absente");
 assert(bocGate.includes("signature !== \"%PDF\""), "validation PDF du BOC absente");
 assert(bocGate.includes("isClosedSession"), "BOC non conditionné à une séance fermée");
@@ -55,9 +57,8 @@ assert(guardWorkflow.includes("if: success()"), "publication de réparation non 
 assert(calendar.includes("Africa/Abidjan"), "calendrier non aligné sur Abidjan");
 
 const feed = JSON.parse(feedRaw);
-assert(feed.quoteCount === EXPECTED_QUOTE_COUNT, `quoteCount=${feed.quoteCount}`);
-assert(Array.isArray(feed.quotes) && feed.quotes.length === EXPECTED_QUOTE_COUNT, "47 cotations non présentes");
 assert(/^\d{4}-\d{2}-\d{2}$/.test(feed.sessionDate ?? ""), "sessionDate invalide");
+assert(Array.isArray(feed.quotes), "cotations absentes");
 
 const symbols = new Set();
 for (const quote of feed.quotes) {
@@ -67,6 +68,26 @@ for (const quote of feed.quotes) {
   assert(Number.isFinite(quote.lastPrice) && quote.lastPrice > 0, `cours invalide ${quote.symbol}`);
   assert(quote.sessionDate === feed.sessionDate, `date incohérente ${quote.symbol}`);
 }
-assert(symbols.size === EXPECTED_QUOTE_COUNT, `univers=${symbols.size}/47`);
 
-console.log(`Pipeline BRVM verrouillé : ${symbols.size}/47, séance ${feed.sessionDate}, double source officielle + BOC obligatoires.`);
+const isCurrentUniverse =
+  feed.quoteCount === EXPECTED_QUOTE_COUNT &&
+  feed.quotes.length === EXPECTED_QUOTE_COUNT &&
+  symbols.size === EXPECTED_QUOTE_COUNT &&
+  symbols.has("BBGC");
+const isPreListingSnapshot =
+  feed.sessionDate <= LEGACY_LAST_SESSION &&
+  feed.quoteCount === LEGACY_QUOTE_COUNT &&
+  feed.quotes.length === LEGACY_QUOTE_COUNT &&
+  symbols.size === LEGACY_QUOTE_COUNT &&
+  !symbols.has("BBGC");
+
+assert(
+  isCurrentUniverse || isPreListingSnapshot,
+  `univers inattendu : ${symbols.size}/${EXPECTED_QUOTE_COUNT}, séance ${feed.sessionDate}, BBGC=${symbols.has("BBGC")}`,
+);
+
+console.log(
+  isCurrentUniverse
+    ? `Pipeline BRVM verrouillé : ${symbols.size}/${EXPECTED_QUOTE_COUNT}, séance ${feed.sessionDate}, BBGC inclus, double source officielle + BOC obligatoires.`
+    : `Snapshot historique pré-BBGC accepté : ${symbols.size}/${LEGACY_QUOTE_COUNT}, séance ${feed.sessionDate}. Le prochain flux certifié doit contenir ${EXPECTED_QUOTE_COUNT} valeurs.`,
+);

@@ -4,10 +4,10 @@ import { previousWeekday } from "./market-calendar.mjs";
 
 const BRVM_URL = "https://www.brvm.org/fr/cours-actions/0";
 const SOURCE_LABEL = "BRVM — séance officielle fermée (cours actions)";
-const EXPECTED_QUOTE_COUNT = 47;
+const EXPECTED_QUOTE_COUNT = 48;
 const MIN_CONTINUITY_RATE = 0.9;
 const EXPECTED_SYMBOLS = new Set([
-  "ABJC", "BICB", "BICC", "BNBC", "BOAB", "BOABF", "BOAC", "BOAM", "BOAN", "BOAS",
+  "ABJC", "BBGC", "BICB", "BICC", "BNBC", "BOAB", "BOABF", "BOAC", "BOAM", "BOAN", "BOAS",
   "CABC", "CBIBF", "CFAC", "CIEC", "ECOC", "ETIT", "FTSC", "LNBB", "NEIC", "NSBC",
   "NTLC", "ONTBF", "ORAC", "ORGT", "PALC", "PRSC", "SAFC", "SCRC", "SDCC", "SDSC",
   "SEMC", "SGBC", "SHEC", "SIBC", "SICC", "SIVC", "SLBC", "SMBC", "SNTS", "SOGC",
