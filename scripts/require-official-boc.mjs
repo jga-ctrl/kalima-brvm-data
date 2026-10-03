@@ -111,20 +111,23 @@ function compareOfficialCloseTables(coursActions, bfin) {
   if (!coursActions || coursActions.size !== EXPECTED_QUOTE_COUNT) {
     return { ready: false, reason: `page cours actions en cours de publication : ${coursActions?.size ?? 0}/${EXPECTED_QUOTE_COUNT}` };
   }
-  if (!bfin || bfin.size !== EXPECTED_QUOTE_COUNT) {
-    return { ready: false, reason: `base financière BRVM en cours de publication : ${bfin?.size ?? 0}/${EXPECTED_QUOTE_COUNT}` };
+  // BFIN "Transactions actions" ne contient que les titres négociés pendant la séance.
+  // Une valeur sans transaction reste légitimement absente de cette table, alors que
+  // la page Cours actions conserve bien les 48 clôtures officielles.
+  if (!bfin || bfin.size === 0 || bfin.size > EXPECTED_QUOTE_COUNT) {
+    return { ready: false, reason: `base financière BRVM illisible : ${bfin?.size ?? 0} titres négociés` };
   }
 
   const mismatches = [];
-  for (const [symbol, price] of coursActions) {
-    const official = bfin.get(symbol);
-    if (!Number.isFinite(official)) mismatches.push(`${symbol}:absent BFIN`);
+  for (const [symbol, official] of bfin) {
+    const price = coursActions.get(symbol);
+    if (!Number.isFinite(price)) mismatches.push(`${symbol}:absent Cours actions`);
     else if (official !== price) mismatches.push(`${symbol}:${price}!=${official}`);
   }
   if (mismatches.length) {
     fail(`écart entre les 2 sources officielles BRVM (${mismatches.length}/${EXPECTED_QUOTE_COUNT}). Exemples: ${mismatches.slice(0, 8).join(", ")}`);
   }
-  return { ready: true, reason: `${EXPECTED_QUOTE_COUNT}/${EXPECTED_QUOTE_COUNT} concordants` };
+  return { ready: true, reason: `${bfin.size} titres négociés concordants sur ${EXPECTED_QUOTE_COUNT} clôtures` };
 }
 
 function bocUrlForDate(date) {
