@@ -6,369 +6,369 @@
       "symbol": "ABJC",
       "name": "SERVAIR ABIDJAN  COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 3220,
-      "previousClose": 3265,
-      "openPrice": 3280,
-      "dayChangePct": -2.28,
-      "dailyChangePercent": -2.28,
-      "dayVolume": 240,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 3165,
+      "previousClose": 3165,
+      "openPrice": 3220,
+      "dayChangePct": -1.71,
+      "dailyChangePercent": -1.71,
+      "dayVolume": 1195,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 3220,
-          "volume": 240
+          "date": "2026-11-16",
+          "close": 3165,
+          "volume": 1195
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "BBGC",
       "name": "BRIDGE BANK GROUP COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 9450,
-      "previousClose": 9395,
-      "openPrice": 9100,
-      "dayChangePct": 3.85,
-      "dailyChangePercent": 3.85,
-      "dayVolume": 11445,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 9400,
+      "previousClose": 9450,
+      "openPrice": 9450,
+      "dayChangePct": -0.53,
+      "dailyChangePercent": -0.53,
+      "dayVolume": 5715,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 9450,
-          "volume": 11445
+          "date": "2026-11-16",
+          "close": 9400,
+          "volume": 5715
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "BICB",
       "name": "BANQUE INTERNATIONALE POUR L’INDUSTRIE ET LE COMMERCE DU BENIN",
       "currency": "XOF",
-      "lastPrice": 7950,
+      "lastPrice": 8005,
       "previousClose": 7950,
-      "openPrice": 7955,
-      "dayChangePct": 0,
-      "dailyChangePercent": 0,
-      "dayVolume": 1826,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "openPrice": 7950,
+      "dayChangePct": 0.69,
+      "dailyChangePercent": 0.69,
+      "dayVolume": 4707,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 7950,
-          "volume": 1826
+          "date": "2026-11-16",
+          "close": 8005,
+          "volume": 4707
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "BICC",
       "name": "BICI COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 32800,
-      "previousClose": 32500,
-      "openPrice": 31705,
-      "dayChangePct": 3.45,
-      "dailyChangePercent": 3.45,
-      "dayVolume": 420,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 32695,
+      "previousClose": 32800,
+      "openPrice": 32800,
+      "dayChangePct": -0.32,
+      "dailyChangePercent": -0.32,
+      "dayVolume": 36,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 32800,
-          "volume": 420
+          "date": "2026-11-16",
+          "close": 32695,
+          "volume": 36
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "BNBC",
       "name": "BERNABE COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 1725,
-      "previousClose": 1725,
-      "openPrice": 1725,
-      "dayChangePct": 0,
-      "dailyChangePercent": 0,
-      "dayVolume": 318,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 1770,
+      "previousClose": 1790,
+      "openPrice": 1730,
+      "dayChangePct": 2.61,
+      "dailyChangePercent": 2.61,
+      "dayVolume": 64,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 1725,
-          "volume": 318
+          "date": "2026-11-16",
+          "close": 1770,
+          "volume": 64
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "BOAB",
       "name": "BANK OF AFRICA BENIN",
       "currency": "XOF",
-      "lastPrice": 9400,
-      "previousClose": 9300,
-      "openPrice": 9450,
-      "dayChangePct": -1.05,
-      "dailyChangePercent": -1.05,
-      "dayVolume": 3251,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 9200,
+      "previousClose": 9200,
+      "openPrice": 9105,
+      "dayChangePct": -2.13,
+      "dailyChangePercent": -2.13,
+      "dayVolume": 7305,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 9400,
-          "volume": 3251
+          "date": "2026-11-16",
+          "close": 9200,
+          "volume": 7305
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "BOABF",
       "name": "BANK OF AFRICA BURKINA FASO",
       "currency": "XOF",
-      "lastPrice": 7950,
-      "previousClose": 8000,
-      "openPrice": 7995,
-      "dayChangePct": -0.62,
-      "dailyChangePercent": -0.62,
-      "dayVolume": 1414,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 7900,
+      "previousClose": 7900,
+      "openPrice": 7950,
+      "dayChangePct": -0.63,
+      "dailyChangePercent": -0.63,
+      "dayVolume": 2842,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 7950,
-          "volume": 1414
+          "date": "2026-11-16",
+          "close": 7900,
+          "volume": 2842
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "BOAC",
       "name": "BANK OF AFRICA COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 11990,
-      "previousClose": 11990,
-      "openPrice": 11985,
-      "dayChangePct": 0,
-      "dailyChangePercent": 0,
-      "dayVolume": 9115,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 11500,
+      "previousClose": 11700,
+      "openPrice": 11990,
+      "dayChangePct": -4.09,
+      "dailyChangePercent": -4.09,
+      "dayVolume": 9618,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 11990,
-          "volume": 9115
+          "date": "2026-11-16",
+          "close": 11500,
+          "volume": 9618
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "BOAM",
       "name": "BANK OF AFRICA MALI",
       "currency": "XOF",
-      "lastPrice": 5705,
-      "previousClose": 5705,
-      "openPrice": 5710,
-      "dayChangePct": 0,
-      "dailyChangePercent": 0,
-      "dayVolume": 1244,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 5595,
+      "previousClose": 5555,
+      "openPrice": 5705,
+      "dayChangePct": -1.93,
+      "dailyChangePercent": -1.93,
+      "dayVolume": 4594,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 5705,
-          "volume": 1244
+          "date": "2026-11-16",
+          "close": 5595,
+          "volume": 4594
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "BOAN",
       "name": "BANK OF AFRICA NIGER",
       "currency": "XOF",
-      "lastPrice": 4925,
-      "previousClose": 4925,
-      "openPrice": 4975,
-      "dayChangePct": -1.01,
-      "dailyChangePercent": -1.01,
-      "dayVolume": 676,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 4850,
+      "previousClose": 4820,
+      "openPrice": 4920,
+      "dayChangePct": -1.52,
+      "dailyChangePercent": -1.52,
+      "dayVolume": 1736,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 4925,
-          "volume": 676
+          "date": "2026-11-16",
+          "close": 4850,
+          "volume": 1736
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "BOAS",
       "name": "BANK OF AFRICA SENEGAL",
       "currency": "XOF",
-      "lastPrice": 8340,
-      "previousClose": 8200,
-      "openPrice": 8110,
-      "dayChangePct": 1.71,
-      "dailyChangePercent": 1.71,
-      "dayVolume": 4616,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 8350,
+      "previousClose": 8300,
+      "openPrice": 8340,
+      "dayChangePct": 0.12,
+      "dailyChangePercent": 0.12,
+      "dayVolume": 8279,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 8340,
-          "volume": 4616
+          "date": "2026-11-16",
+          "close": 8350,
+          "volume": 8279
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "CABC",
       "name": "SICABLE COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 2910,
-      "previousClose": 2915,
-      "openPrice": 2800,
-      "dayChangePct": -0.17,
-      "dailyChangePercent": -0.17,
-      "dayVolume": 646,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 2850,
+      "previousClose": 2850,
+      "openPrice": 2910,
+      "dayChangePct": -2.06,
+      "dailyChangePercent": -2.06,
+      "dayVolume": 1172,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 2910,
-          "volume": 646
+          "date": "2026-11-16",
+          "close": 2850,
+          "volume": 1172
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "CBIBF",
       "name": "CORIS BANK INTERNATIONAL BURKINA FASO",
       "currency": "XOF",
-      "lastPrice": 31990,
-      "previousClose": 32000,
-      "openPrice": 32000,
-      "dayChangePct": -0.03,
-      "dailyChangePercent": -0.03,
-      "dayVolume": 226,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 31495,
+      "previousClose": 31990,
+      "openPrice": 31990,
+      "dayChangePct": -1.55,
+      "dailyChangePercent": -1.55,
+      "dayVolume": 228,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 31990,
-          "volume": 226
+          "date": "2026-11-16",
+          "close": 31495,
+          "volume": 228
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "CFAC",
       "name": "CFAO MOTORS COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 1260,
+      "lastPrice": 1285,
       "previousClose": 1260,
       "openPrice": 1260,
-      "dayChangePct": 0,
-      "dailyChangePercent": 0,
-      "dayVolume": 1080,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "dayChangePct": 1.98,
+      "dailyChangePercent": 1.98,
+      "dayVolume": 3098,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 1260,
-          "volume": 1080
+          "date": "2026-11-16",
+          "close": 1285,
+          "volume": 3098
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "CIEC",
       "name": "CIE COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 5100,
-      "previousClose": 5000,
-      "openPrice": 4905,
-      "dayChangePct": 2,
-      "dailyChangePercent": 2,
-      "dayVolume": 1681,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 4900,
+      "previousClose": 4900,
+      "openPrice": 5095,
+      "dayChangePct": -3.92,
+      "dailyChangePercent": -3.92,
+      "dayVolume": 16297,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 5100,
-          "volume": 1681
+          "date": "2026-11-16",
+          "close": 4900,
+          "volume": 16297
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "ECOC",
       "name": "ECOBANK COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 15500,
-      "previousClose": 15605,
-      "openPrice": 15600,
-      "dayChangePct": -0.67,
-      "dailyChangePercent": -0.67,
-      "dayVolume": 3478,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 15345,
+      "previousClose": 15105,
+      "openPrice": 15500,
+      "dayChangePct": -1,
+      "dailyChangePercent": -1,
+      "dayVolume": 2865,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 15500,
-          "volume": 3478
+          "date": "2026-11-16",
+          "close": 15345,
+          "volume": 2865
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "ETIT",
@@ -379,42 +379,42 @@
       "openPrice": 59,
       "dayChangePct": 0,
       "dailyChangePercent": 0,
-      "dayVolume": 579535,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "dayVolume": 444749,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
+          "date": "2026-11-16",
           "close": 59,
-          "volume": 579535
+          "volume": 444749
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "FTSC",
       "name": "FILTISAC COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 1700,
+      "lastPrice": 1695,
       "previousClose": 1700,
-      "openPrice": 1700,
-      "dayChangePct": 0,
-      "dailyChangePercent": 0,
-      "dayVolume": 998,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "openPrice": 1715,
+      "dayChangePct": -0.29,
+      "dailyChangePercent": -0.29,
+      "dayVolume": 1014,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 1700,
-          "volume": 998
+          "date": "2026-11-16",
+          "close": 1695,
+          "volume": 1014
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "LNBB",
@@ -422,91 +422,91 @@
       "currency": "XOF",
       "lastPrice": 3800,
       "previousClose": 3800,
-      "openPrice": 3940,
-      "dayChangePct": -3.43,
-      "dailyChangePercent": -3.43,
-      "dayVolume": 468,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "openPrice": 3930,
+      "dayChangePct": 0,
+      "dailyChangePercent": 0,
+      "dayVolume": 11776,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
+          "date": "2026-11-16",
           "close": 3800,
-          "volume": 468
+          "volume": 11776
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "NEIC",
       "name": "NEI-CEDA COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 1965,
+      "lastPrice": 1975,
       "previousClose": 1975,
-      "openPrice": 1980,
-      "dayChangePct": -0.76,
-      "dailyChangePercent": -0.76,
-      "dayVolume": 316,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "openPrice": 1965,
+      "dayChangePct": 0.51,
+      "dailyChangePercent": 0.51,
+      "dayVolume": 358,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 1965,
-          "volume": 316
+          "date": "2026-11-16",
+          "close": 1975,
+          "volume": 358
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "NSBC",
       "name": "NSIA BANQUE COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 17005,
-      "previousClose": 17100,
-      "openPrice": 17100,
-      "dayChangePct": -0.56,
-      "dailyChangePercent": -0.56,
-      "dayVolume": 1462,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 16600,
+      "previousClose": 16500,
+      "openPrice": 17000,
+      "dayChangePct": -2.38,
+      "dailyChangePercent": -2.38,
+      "dayVolume": 2440,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 17005,
-          "volume": 1462
+          "date": "2026-11-16",
+          "close": 16600,
+          "volume": 2440
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "NTLC",
       "name": "NESTLE COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 13150,
-      "previousClose": 13145,
-      "openPrice": 13155,
-      "dayChangePct": 0.04,
-      "dailyChangePercent": 0.04,
-      "dayVolume": 628,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 13095,
+      "previousClose": 13150,
+      "openPrice": 13140,
+      "dayChangePct": -0.42,
+      "dailyChangePercent": -0.42,
+      "dayVolume": 218,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 13150,
-          "volume": 628
+          "date": "2026-11-16",
+          "close": 13095,
+          "volume": 218
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "ONTBF",
@@ -517,203 +517,203 @@
       "openPrice": 2900,
       "dayChangePct": 0,
       "dailyChangePercent": 0,
-      "dayVolume": 844,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "dayVolume": 2328,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
+          "date": "2026-11-16",
           "close": 2900,
-          "volume": 844
+          "volume": 2328
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "ORAC",
       "name": "ORANGE COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 19500,
-      "previousClose": 19500,
-      "openPrice": 20500,
-      "dayChangePct": -2.5,
-      "dailyChangePercent": -2.5,
-      "dayVolume": 5341,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 19505,
+      "previousClose": 19505,
+      "openPrice": 20000,
+      "dayChangePct": 0.03,
+      "dailyChangePercent": 0.03,
+      "dayVolume": 8298,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 19500,
-          "volume": 5341
+          "date": "2026-11-16",
+          "close": 19505,
+          "volume": 8298
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "ORGT",
       "name": "ORAGROUP TOGO",
       "currency": "XOF",
-      "lastPrice": 2615,
-      "previousClose": 2650,
-      "openPrice": 2600,
-      "dayChangePct": 2.15,
-      "dailyChangePercent": 2.15,
-      "dayVolume": 1655,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 2550,
+      "previousClose": 2550,
+      "openPrice": 2620,
+      "dayChangePct": -2.49,
+      "dailyChangePercent": -2.49,
+      "dayVolume": 4091,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 2615,
-          "volume": 1655
+          "date": "2026-11-16",
+          "close": 2550,
+          "volume": 4091
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "PALC",
       "name": "PALM COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 7645,
+      "lastPrice": 7600,
       "previousClose": 7645,
-      "openPrice": 7795,
-      "dayChangePct": 0,
-      "dailyChangePercent": 0,
-      "dayVolume": 1068,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "openPrice": 7845,
+      "dayChangePct": -0.59,
+      "dailyChangePercent": -0.59,
+      "dayVolume": 10224,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 7645,
-          "volume": 1068
+          "date": "2026-11-16",
+          "close": 7600,
+          "volume": 10224
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "PRSC",
       "name": "TRACTAFRIC MOTORS COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 3790,
-      "previousClose": 3790,
-      "openPrice": 3800,
-      "dayChangePct": 2.43,
-      "dailyChangePercent": 2.43,
-      "dayVolume": 592,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 3750,
+      "previousClose": 3705,
+      "openPrice": 3790,
+      "dayChangePct": -1.06,
+      "dailyChangePercent": -1.06,
+      "dayVolume": 66,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 3790,
-          "volume": 592
+          "date": "2026-11-16",
+          "close": 3750,
+          "volume": 66
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SAFC",
       "name": "SAFCA COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 3650,
-      "previousClose": 3610,
-      "openPrice": 3685,
-      "dayChangePct": -0.95,
-      "dailyChangePercent": -0.95,
-      "dayVolume": 889,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 3600,
+      "previousClose": 3570,
+      "openPrice": 3640,
+      "dayChangePct": -1.37,
+      "dailyChangePercent": -1.37,
+      "dayVolume": 1525,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 3650,
-          "volume": 889
+          "date": "2026-11-16",
+          "close": 3600,
+          "volume": 1525
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SCRC",
       "name": "SUCRIVOIRE COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 1555,
-      "previousClose": 1555,
-      "openPrice": 1595,
-      "dayChangePct": -2.81,
-      "dailyChangePercent": -2.81,
-      "dayVolume": 4880,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 1545,
+      "previousClose": 1520,
+      "openPrice": 1550,
+      "dayChangePct": -0.64,
+      "dailyChangePercent": -0.64,
+      "dayVolume": 35172,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 1555,
-          "volume": 4880
+          "date": "2026-11-16",
+          "close": 1545,
+          "volume": 35172
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SDCC",
       "name": "SODE COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 12400,
-      "previousClose": 12500,
-      "openPrice": 12500,
-      "dayChangePct": -0.8,
-      "dailyChangePercent": -0.8,
-      "dayVolume": 443,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 12200,
+      "previousClose": 12110,
+      "openPrice": 12400,
+      "dayChangePct": -1.61,
+      "dailyChangePercent": -1.61,
+      "dayVolume": 1367,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 12400,
-          "volume": 443
+          "date": "2026-11-16",
+          "close": 12200,
+          "volume": 1367
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SDSC",
       "name": "AFRICA GLOBAL LOGISTICS COTE D'IVOIRE",
       "currency": "XOF",
       "lastPrice": 2780,
-      "previousClose": 2770,
-      "openPrice": 2800,
-      "dayChangePct": -0.71,
-      "dailyChangePercent": -0.71,
-      "dayVolume": 3789,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "previousClose": 2815,
+      "openPrice": 2745,
+      "dayChangePct": 0,
+      "dailyChangePercent": 0,
+      "dayVolume": 14855,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
+          "date": "2026-11-16",
           "close": 2780,
-          "volume": 3789
+          "volume": 14855
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SEMC",
@@ -725,87 +725,87 @@
       "dayChangePct": 0,
       "dailyChangePercent": 0,
       "dayVolume": 0,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
+          "date": "2026-11-16",
           "close": 1495,
           "volume": 0
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SGBC",
       "name": "SOCIETE GENERALE COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 38850,
-      "previousClose": 38890,
+      "lastPrice": 39450,
+      "previousClose": 39600,
       "openPrice": 38900,
-      "dayChangePct": -0.1,
-      "dailyChangePercent": -0.1,
-      "dayVolume": 1793,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "dayChangePct": 1.54,
+      "dailyChangePercent": 1.54,
+      "dayVolume": 10712,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 38850,
-          "volume": 1793
+          "date": "2026-11-16",
+          "close": 39450,
+          "volume": 10712
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SHEC",
       "name": "VIVO ENERGY COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 2170,
-      "previousClose": 2170,
-      "openPrice": 2050,
-      "dayChangePct": 6.9,
-      "dailyChangePercent": 6.9,
-      "dayVolume": 500,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 2110,
+      "previousClose": 2140,
+      "openPrice": 2160,
+      "dayChangePct": -2.76,
+      "dailyChangePercent": -2.76,
+      "dayVolume": 648,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 2170,
-          "volume": 500
+          "date": "2026-11-16",
+          "close": 2110,
+          "volume": 648
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SIBC",
       "name": "SOCIETE IVOIRIENNE DE BANQUE COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 8890,
-      "previousClose": 8875,
-      "openPrice": 8800,
-      "dayChangePct": 1.02,
-      "dailyChangePercent": 1.02,
-      "dayVolume": 3056,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 8515,
+      "previousClose": 8515,
+      "openPrice": 8900,
+      "dayChangePct": -4.22,
+      "dailyChangePercent": -4.22,
+      "dayVolume": 34829,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 8890,
-          "volume": 3056
+          "date": "2026-11-16",
+          "close": 8515,
+          "volume": 34829
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SICC",
@@ -817,311 +817,311 @@
       "dayChangePct": 0,
       "dailyChangePercent": 0,
       "dayVolume": 0,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
+          "date": "2026-11-16",
           "close": 8400,
           "volume": 0
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SIVC",
       "name": "ERIUM COTE D’IVOIRE",
       "currency": "XOF",
-      "lastPrice": 1700,
+      "lastPrice": 1685,
       "previousClose": 1700,
-      "openPrice": 1700,
-      "dayChangePct": 0,
-      "dailyChangePercent": 0,
-      "dayVolume": 1194,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "openPrice": 1685,
+      "dayChangePct": -0.88,
+      "dailyChangePercent": -0.88,
+      "dayVolume": 1075,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 1700,
-          "volume": 1194
+          "date": "2026-11-16",
+          "close": 1685,
+          "volume": 1075
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SLBC",
       "name": "SOLIBRA COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 42950,
-      "previousClose": 42800,
-      "openPrice": 42950,
-      "dayChangePct": 0.01,
-      "dailyChangePercent": 0.01,
-      "dayVolume": 931,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 42290,
+      "previousClose": 42290,
+      "openPrice": 42740,
+      "dayChangePct": -1.54,
+      "dailyChangePercent": -1.54,
+      "dayVolume": 739,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 42950,
-          "volume": 931
+          "date": "2026-11-16",
+          "close": 42290,
+          "volume": 739
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SMBC",
       "name": "SMB COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 18000,
-      "previousClose": 18000,
+      "lastPrice": 17605,
+      "previousClose": 17605,
       "openPrice": 18000,
-      "dayChangePct": 0,
-      "dailyChangePercent": 0,
-      "dayVolume": 193,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "dayChangePct": -2.19,
+      "dailyChangePercent": -2.19,
+      "dayVolume": 649,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 18000,
-          "volume": 193
+          "date": "2026-11-16",
+          "close": 17605,
+          "volume": 649
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SNTS",
       "name": "SONATEL SENEGAL",
       "currency": "XOF",
-      "lastPrice": 4110,
-      "previousClose": 4110,
-      "openPrice": 4200,
-      "dayChangePct": -2.03,
-      "dailyChangePercent": -2.03,
-      "dayVolume": 92670,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 4145,
+      "previousClose": 4150,
+      "openPrice": 4110,
+      "dayChangePct": 0.85,
+      "dailyChangePercent": 0.85,
+      "dayVolume": 130248,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 4110,
-          "volume": 92670
+          "date": "2026-11-16",
+          "close": 4145,
+          "volume": 130248
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SOGC",
       "name": "SOGB COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 7850,
-      "previousClose": 7890,
-      "openPrice": 7890,
-      "dayChangePct": -0.44,
-      "dailyChangePercent": -0.44,
-      "dayVolume": 465,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 7500,
+      "previousClose": 7650,
+      "openPrice": 7900,
+      "dayChangePct": -4.46,
+      "dailyChangePercent": -4.46,
+      "dayVolume": 7068,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 7850,
-          "volume": 465
+          "date": "2026-11-16",
+          "close": 7500,
+          "volume": 7068
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "SPHC",
       "name": "SAPH COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 7990,
-      "previousClose": 8000,
+      "lastPrice": 7800,
+      "previousClose": 7800,
       "openPrice": 8000,
-      "dayChangePct": -0.12,
-      "dailyChangePercent": -0.12,
-      "dayVolume": 497,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "dayChangePct": -2.38,
+      "dailyChangePercent": -2.38,
+      "dayVolume": 3954,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 7990,
-          "volume": 497
+          "date": "2026-11-16",
+          "close": 7800,
+          "volume": 3954
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "STAC",
       "name": "SETAO COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 1945,
-      "previousClose": 1945,
-      "openPrice": 1925,
-      "dayChangePct": -6.27,
-      "dailyChangePercent": -6.27,
-      "dayVolume": 4662,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 2090,
+      "previousClose": 2090,
+      "openPrice": 1945,
+      "dayChangePct": 7.46,
+      "dailyChangePercent": 7.46,
+      "dayVolume": 3816,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 1945,
-          "volume": 4662
+          "date": "2026-11-16",
+          "close": 2090,
+          "volume": 3816
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "STBC",
       "name": "SITAB COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 21450,
-      "previousClose": 21250,
-      "openPrice": 21250,
-      "dayChangePct": 0.94,
-      "dailyChangePercent": 0.94,
-      "dayVolume": 2000,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 21300,
+      "previousClose": 21450,
+      "openPrice": 21450,
+      "dayChangePct": -0.7,
+      "dailyChangePercent": -0.7,
+      "dayVolume": 1692,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 21450,
-          "volume": 2000
+          "date": "2026-11-16",
+          "close": 21300,
+          "volume": 1692
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "TTLC",
       "name": "TOTALENERGIES MARKETING COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 3100,
-      "previousClose": 3095,
+      "lastPrice": 3000,
+      "previousClose": 3005,
       "openPrice": 3100,
-      "dayChangePct": 0.16,
-      "dailyChangePercent": 0.16,
-      "dayVolume": 1330,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "dayChangePct": -3.23,
+      "dailyChangePercent": -3.23,
+      "dayVolume": 3561,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 3100,
-          "volume": 1330
+          "date": "2026-11-16",
+          "close": 3000,
+          "volume": 3561
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "TTLS",
       "name": "TOTALENERGIES MARKETING SENEGAL",
       "currency": "XOF",
-      "lastPrice": 3700,
+      "lastPrice": 3695,
       "previousClose": 3700,
       "openPrice": 3700,
-      "dayChangePct": 0,
-      "dailyChangePercent": 0,
-      "dayVolume": 1348,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "dayChangePct": -0.14,
+      "dailyChangePercent": -0.14,
+      "dayVolume": 1885,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 3700,
-          "volume": 1348
+          "date": "2026-11-16",
+          "close": 3695,
+          "volume": 1885
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "UNLC",
       "name": "UNILEVER COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 46500,
-      "previousClose": 47000,
-      "openPrice": 46690,
-      "dayChangePct": -1.06,
-      "dailyChangePercent": -1.06,
-      "dayVolume": 4,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "lastPrice": 45000,
+      "previousClose": 45000,
+      "openPrice": 45000,
+      "dayChangePct": -3.23,
+      "dailyChangePercent": -3.23,
+      "dayVolume": 37,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 46500,
-          "volume": 4
+          "date": "2026-11-16",
+          "close": 45000,
+          "volume": 37
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     },
     {
       "symbol": "UNXC",
       "name": "UNIWAX COTE D'IVOIRE",
       "currency": "XOF",
-      "lastPrice": 1890,
+      "lastPrice": 1875,
       "previousClose": 1890,
       "openPrice": 1890,
-      "dayChangePct": 0,
-      "dailyChangePercent": 0,
-      "dayVolume": 1761,
-      "sessionDate": "2026-11-13",
-      "sessionTime": "17:15",
+      "dayChangePct": -0.79,
+      "dailyChangePercent": -0.79,
+      "dayVolume": 3295,
+      "sessionDate": "2026-11-16",
+      "sessionTime": "19:15",
       "priceSeries": [
         {
-          "date": "2026-11-13",
-          "close": 1890,
-          "volume": 1761
+          "date": "2026-11-16",
+          "close": 1875,
+          "volume": 3295
         }
       ],
       "source": "BRVM — séance officielle fermée (cours actions)",
       "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
-      "fetchedAt": "2026-11-13T17:20:05.081Z"
+      "fetchedAt": "2026-11-16T19:20:33.340Z"
     }
   ],
   "source": "BRVM — séance officielle fermée (cours actions)",
   "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
   "certification": {
     "status": "official-brvm-session-closed",
-    "sessionDate": "2026-11-13",
+    "sessionDate": "2026-11-16",
     "sourceUrl": "https://www.brvm.org/fr/cours-actions/0",
     "continuityChecked": true,
     "continuityStatus": "warning",
-    "continuityRate": 0.6041666666666666,
-    "continuityMatches": 29,
+    "continuityRate": 0.3541666666666667,
+    "continuityMatches": 17,
     "continuityComparable": 48,
-    "continuityReason": "continuité de séance insuffisante (29/48, 60.4%). Exemples: ABJC:3295->veille=3265, BBGC:9100->veille=9395, BICC:31705->veille=32500, BOAB:9500->veille=9300, BOAN:4975->veille=4925, LNBB:3935->veille=3800, NEIC:1980->veille=1975, ORAC:20000->veille=19500",
-    "previousPublishedSession": "2026-11-12"
+    "continuityReason": "continuité de séance insuffisante (17/48, 35.4%). Exemples: ABJC:3220->veille=3165, BNBC:1725->veille=1790, BOAB:9400->veille=9200, BOABF:7950->veille=7900, BOAC:11990->veille=11700, BOAM:5705->veille=5555, BOAN:4925->veille=4820, BOAS:8340->veille=8300",
+    "previousPublishedSession": "2026-11-13"
   },
-  "sessionDate": "2026-11-13",
-  "sessionTime": "17:15",
-  "fetchedAt": "2026-11-13T17:20:05.081Z"
+  "sessionDate": "2026-11-16",
+  "sessionTime": "19:15",
+  "fetchedAt": "2026-11-16T19:20:33.340Z"
 }
